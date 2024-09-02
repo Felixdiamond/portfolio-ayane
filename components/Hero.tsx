@@ -68,7 +68,7 @@ const Hero = () => {
             high-quality websites and applications with a focus on <span className='text-[#4e4e94] font-semibold'>performance</span>,
             <span className='text-[#4e4e94] font-semibold'> accessibility</span>, and <span className='text-[#4e4e94] font-semibold'>user experience</span>.
           </p>
-          <Link href="#about">
+          <Link href="#about" className='mt-4'>
             <Button
               title="Explore My Work"
               icon={<Navigation size={16} />}
