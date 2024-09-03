@@ -1,8 +1,17 @@
 "use client";
 import { Suspense, lazy } from 'react';
-import Preloader from "@/components/Preloader";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { navItems } from "@/data";
+// import Hero from '@/components/Hero';
+// import RecentProjects from '@/components/Projects';
+// import Experience from "@/components/Experience";
+// import Approach from "@/components/Approach";
+// import Grid from "@/components/Grid";
+// import Testimonials from "@/components/Testimonials";
+
+// import preloader using next dynamic import
+import dynamic from 'next/dynamic';
+const Preloader = dynamic(() => import('@/components/Preloader'), {ssr: false});
 
 const Hero = lazy(() => import('@/components/Hero'));
 const Grid = lazy(() => import('@/components/Grid'));

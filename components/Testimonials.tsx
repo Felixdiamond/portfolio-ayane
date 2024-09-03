@@ -3,7 +3,7 @@
 import { testimonials } from "@/data";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 
-const Clients = () => {
+const Testimonials = () => {
   return (
     <section id="testimonials" className="py-20">
       <h1 className="heading">
@@ -46,4 +46,4 @@ const Clients = () => {
   );
 };
 
-export default Clients;
+export default Testimonials;

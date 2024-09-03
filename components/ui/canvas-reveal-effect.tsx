@@ -4,24 +4,24 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import React, { useMemo, useRef } from "react";
 import * as THREE from "three";
 
-export const CanvasRevealEffect = ({
+interface CanvasRevealEffectProps {
+  animationSpeed?: number;
+
+  opacities?: number[];
+
+  colors?: number[][];
+  containerClassName?: string;
+  dotSize?: number;
+  showGradient?: boolean;
+}
+
+export const CanvasRevealEffect: React.FC<CanvasRevealEffectProps> = ({
   animationSpeed = 0.4,
   opacities = [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
   colors = [[0, 255, 255]],
   containerClassName,
   dotSize,
   showGradient = true,
-}: {
-  /**
-   * 0.1 - slower
-   * 1.0 - faster
-   */
-  animationSpeed?: number;
-  opacities?: number[];
-  colors?: number[][];
-  containerClassName?: string;
-  dotSize?: number;
-  showGradient?: boolean;
 }) => {
   return (
     <div className={cn("h-full relative bg-white w-full", containerClassName)}>
