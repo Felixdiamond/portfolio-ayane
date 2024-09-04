@@ -2,12 +2,6 @@
 import { Suspense, lazy } from 'react';
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { navItems } from "@/data";
-// import Hero from '@/components/Hero';
-// import RecentProjects from '@/components/Projects';
-// import Experience from "@/components/Experience";
-// import Approach from "@/components/Approach";
-// import Grid from "@/components/Grid";
-// import Testimonials from "@/components/Testimonials";
 
 // import preloader using next dynamic import
 import dynamic from 'next/dynamic';
@@ -19,10 +13,12 @@ const RecentProjects = lazy(() => import('@/components/Projects'));
 const Testimonials = lazy(() => import('@/components/Testimonials'));
 const Experience = lazy(() => import('@/components/Experience'));
 const Approach = lazy(() => import('@/components/Approach'));
+const Footer = lazy(() => import('@/components/Footer'));
+const Socials = lazy(() => import('@/components/Socials'));
 
 export default function Home() {
   return (
-    <main className="relative bg-black-100 flex justify-center items-center flex-col overflow-hidden mx:auto sm:px-10 px-5">
+    <main className="relative bg-black-100 flex justify-center items-center flex-col mx:auto sm:px-10 px-5 overflow-clip">
       <FloatingNav navItems={navItems} />
       <Suspense fallback={<Preloader />}>
         <Hero />
@@ -31,6 +27,8 @@ export default function Home() {
         <Testimonials />
         <Experience />
         <Approach />
+        <Footer />
+        <Socials />
       </Suspense>
     </main>
   );

@@ -13,7 +13,7 @@ const Hero = () => {
   const [key, setKey] = useState(0);
   
   useEffect(() => {
-    const timer = setTimeout(() => setShowKeyword(true), 500);
+    const timer = setTimeout(() => setShowKeyword(true), 200);
 
     const interval = setInterval(() => {
       setCurrentWord(prevWord => {
