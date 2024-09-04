@@ -32,7 +32,7 @@ const Footer = () => {
             className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl heading lg:max-w-[45vw]"
           >
             Ready to take{" "}
-            <span className="text-purple"> your digital presence </span> to the
+            <span className="text-[#6a6abf]"> your digital presence </span> to the
             next level?
           </motion.h1>
           <p className="text-white-200 md:mt-10 my-5 text-center">

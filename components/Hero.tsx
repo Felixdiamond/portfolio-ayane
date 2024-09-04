@@ -5,6 +5,7 @@ import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect, TextGenerateEffectWord } from "./ui/text-generate-effect";
 import Button from "./ui/Button";
 import { Navigation } from "lucide-react";
+import { ShootingStars } from './ui/shooting-stars';
 
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState('Innovations');
@@ -77,6 +78,7 @@ const Hero = () => {
           </Link>
         </div>
       </div>
+      <ShootingStars />
     </div>
   );
 };
