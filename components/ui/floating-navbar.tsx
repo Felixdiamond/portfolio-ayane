@@ -8,10 +8,6 @@ import {
 } from "framer-motion";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
-import { PiUserListLight } from "react-icons/pi";
-import { GoProjectRoadmap } from "react-icons/go";
-import { BiCommentDetail } from "react-icons/bi";
-import { VscDebugDisconnect } from "react-icons/vsc";
 
 export const FloatingNav = ({
   navItems,
