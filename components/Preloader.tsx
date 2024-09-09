@@ -1,4 +1,5 @@
 "use client";
+
 import animationData from "@/data/plane.json";
 import { useEffect, useState } from "react";
 import Lottie from "react-lottie";
@@ -7,10 +8,22 @@ const Preloader = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      setIsMobile(true);
-    }
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Set the initial state
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+  
   const defaultOptions = {
     loop: true,
     autoplay: true,

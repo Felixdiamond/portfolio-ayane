@@ -9,12 +9,23 @@ import { LampContainer } from "./ui/lamp";
 import { useEffect, useState } from "react";
 
 const Footer = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
+    const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
-    });
+    };
+
+    // Set the initial state
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (

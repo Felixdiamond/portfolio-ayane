@@ -13,7 +13,7 @@ export const PinContainer = ({
 }: {
   children: React.ReactNode;
   title?: string;
-  href?: string;
+  href: string;
   className?: string;
   containerClassName?: string;
 }) => {
@@ -36,7 +36,7 @@ export const PinContainer = ({
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      href={href || ""}
+      href={href}
       target="_blank"
     >
       <div
@@ -65,7 +65,7 @@ export const PinPerspective = ({
   href,
 }: {
   title?: string;
-  href?: string;
+  href: string;
 }) => {
   return (
     <motion.div className="pointer-events-none  w-full h-80 flex items-center justify-center opacity-0 group-hover/pin:opacity-100 z-[60] transition duration-500">
