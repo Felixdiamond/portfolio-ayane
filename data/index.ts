@@ -75,7 +75,7 @@ export const projects = [
     title: "9notes: AI-Powered Smart Notes",
     des: "An intelligent note-taking app that leverages AI to answer questions based on your note context, enhancing productivity and learning.",
     img: "/nine-notes.svg",
-    iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/sb.svg", "./mongo.svg", "/prisma.svg", "./gemini.svg"],
+    iconLists: ["/tail.svg", "/ts.svg", "/sb.svg", "./mongo.svg", "/prisma.svg"],
     link: "nine-notes.vercel.app",
   },
   {
