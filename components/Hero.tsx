@@ -4,8 +4,8 @@ import Link from "next/link";
 import { Spotlight } from "./ui/Spotlight";
 import { TextGenerateEffect, TextGenerateEffectWord } from "./ui/text-generate-effect";
 import Button from "./ui/Button";
-import { Navigation } from "lucide-react";
 import { ShootingStars } from './ui/shooting-stars';
+import { FaLocationArrow } from 'react-icons/fa6';
 
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState('Innovations');
@@ -72,7 +72,7 @@ const Hero = () => {
           <Link href="#about" className='mt-4'>
             <Button
               title="Explore My Work"
-              icon={<Navigation size={16} />}
+              icon={<FaLocationArrow size={16} />}
               position="right"
             />
           </Link>

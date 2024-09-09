@@ -76,7 +76,7 @@ export const projects = [
     des: "An intelligent note-taking app that leverages AI to answer questions based on your note context, enhancing productivity and learning.",
     img: "/nine-notes.svg",
     iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/sb.svg", "./mongo.svg", "/prisma.svg", "./gemini.svg"],
-    link: "/ui.smartnotes.com",
+    link: "nine-notes.vercel.app",
   },
   {
     id: 2,
@@ -84,7 +84,7 @@ export const projects = [
     des: "An innovative resume review tool using Anthropic API to generate constructive or challenging feedback based on selected mode.",
     img: "/resume-review.svg",
     iconLists: ["/next.svg", "/tail.svg", "/ace.svg", "/anthropic.svg", "/framer.svg"],
-    link: "/ui.resumeai.com",
+    link: "resume-review-lake.vercel.app",
   },
   {
     id: 3,
@@ -92,48 +92,36 @@ export const projects = [
     des: "A versatile e-learning platform offering e-books, video courses, and audiobooks for an immersive educational experience.",
     img: "/nine-books.svg",
     iconLists: ["/next.svg", "/tail.svg", "/sb.svg", "/paystack.svg", "/styledc.svg"],
-    link: "/ui.eduhub.com",
+    link: "nine-books.vercel.app",
   },
   {
     id: 4,
     title: "VideoTranslator: Open-Source Voice Dubber",
     des: "An innovative Python-based tool for automatic voice dubbing, making content accessible across languages.",
-    img: "/p4.svg",
+    img: "/video-translator.svg",
     iconLists: ["/py.svg", "/openai.svg", "/librosa.svg", "/hf.svg", "/ffmpeg.svg"],
-    link: "/github.com/Felixdiamond/videotranslator",
+    link: "github.com/Felixdiamond/videotranslator",
   },
 ];
 
 export const testimonials = [
   {
     quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
+      "He excels in crafting high-quality code that is easy to understand and maintain. He is a great team player and is always willing to help others.",
+    name: "Omonike Blessing",
+    title: "Business Owner - Elijah Graphics",
   },
   {
     quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
+      "Collaborating with Felix was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Felix's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Felix is the ideal partner.",
+    name: "Emmanuel Oye",
+    title: "C.E.O - O.G Creations",
   },
   {
     quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
-  },
-  {
-    quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
-  },
-  {
-    quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
+      "After Felix optimized our website, our traffic increased by 50%. We can't thank them enough! I've never met a web developer who truly cares about their clients' success like Felix does.",
+    name: "Ebisintei Dennis",
+    title: "Founder - Lomosoft",
   },
 ];
 
@@ -157,13 +145,16 @@ export const socialMedia = [
   {
     id: 1,
     img: "/git.svg",
+    link: "https://github.com/Felixdiamond",
   },
   {
     id: 2,
     img: "/twit.svg",
+    link: "https://x.com/FelixDiamond06",
   },
   {
     id: 3,
     img: "/link.svg",
+    link: "https://www.linkedin.com/in/felix-dawodu-ba2b08211"
   },
 ];

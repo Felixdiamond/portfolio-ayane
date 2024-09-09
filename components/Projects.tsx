@@ -1,6 +1,6 @@
 import { projects } from "@/data";
 import { PinContainer } from "./ui/3d-pin";
-import { Navigation } from "lucide-react";
+import { IoNavigate } from "react-icons/io5";
 
 const RecentProjects = () => {
   return (
@@ -15,7 +15,7 @@ const RecentProjects = () => {
             key={project.id}
             className="sm:h-[41rem] h-[32rem] lg:min-h-[32.5rem] flex items-center justify-center sm:w-[570px] w-[80vw]"
           >
-            <PinContainer title={project.link} href={project.link}>
+            <PinContainer title={project.link} href={project.id === 3 ? 'https://odohs-bookstore.vercel.app' : `https://${project.link}`}>
               <div className="relative flex items-center justify-center sm:w-[570px] w-[80vw] overflow-hidden sm:h-[40vh] h-[30vh] mb-10">
                 <div className="relative w-full h-full overflow-hidden lg:rounded-3xl bg-[#13162d]">
                   <img src="/bg.png" alt="bg-img" />
@@ -48,7 +48,7 @@ const RecentProjects = () => {
                     <p className="flex lg:text-xl md:text-xs text-sm text-purple">
                         Check Live Site
                     </p>
-                    <Navigation className="ms-2" color="#CBACF9" size={16} />
+                    <IoNavigate className="ms-2" color="#CBACF9" size={16} />
                 </div>
               </div>
             </PinContainer>

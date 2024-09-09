@@ -1,8 +1,16 @@
 "use client";
 import animationData from "@/data/plane.json";
+import { useEffect, useState } from "react";
 import Lottie from "react-lottie";
 
 const Preloader = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    }
+  }, []);
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -14,7 +22,12 @@ const Preloader = () => {
 
   return (
     <div className="h-screen w-screen bg-inherit flex items-center justify-center">
-      <Lottie options={defaultOptions} width={200} height={200} />
+      {/* <Lottie options={defaultOptions} width={200} height={200} /> */}
+      {isMobile ? (
+        <Lottie options={defaultOptions} width={150} height={150} />
+      ) : (
+        <Lottie options={defaultOptions} width={200} height={200} />
+      )}
     </div>
   );
 };
