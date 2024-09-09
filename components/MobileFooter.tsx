@@ -26,7 +26,7 @@ const MobileFooter = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Reach out to me today and let's discuss how I can help you achieve
+            Reach out to me today and let&apos;s discuss how I can help you achieve
             your goals.
           </motion.p>
           <motion.div
