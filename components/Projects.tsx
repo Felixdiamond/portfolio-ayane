@@ -45,7 +45,7 @@ const RecentProjects = () => {
                   ))}
                 </div>
                 <div className="flex justify-center items-center">
-                    <p className="flex lg:text-xl md:text-xs text-sm text-purple">
+                    <p className="flex lg:text-xl md:text-xs text-sm text-purple text-nowrap">
                         Check Live Site
                     </p>
                     <IoNavigate className="ms-2" color="#CBACF9" size={16} />
