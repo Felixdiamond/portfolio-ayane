@@ -6,7 +6,12 @@ console.log("Is document defined?", typeof document !== "undefined");
 import { useEffect, useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
 
-import Lottie from "react-lottie";
+import dynamic from 'next/dynamic'
+
+const Lottie = dynamic(() => import('react-lottie'), {
+  ssr: false,
+  loading: () => null // Optional: render nothing during loading
+})
 
 import { cn } from "@/utils/cn";
 
