@@ -1,3 +1,5 @@
+"use client";
+
 import { projects } from "@/data";
 import { PinContainer } from "./ui/3d-pin";
 import { IoNavigate } from "react-icons/io5";

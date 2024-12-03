@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+console.log("Is window defined?", typeof window !== "undefined");
+console.log("Is document defined?", typeof document !== "undefined");
+
+import { useEffect, useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
 
 import Lottie from "react-lottie";
@@ -56,6 +59,12 @@ export const BentoGridItem = ({
 
   const [copied, setCopied] = useState(false);
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const defaultOptions = {
     loop: copied,
     autoplay: copied,
@@ -66,10 +75,17 @@ export const BentoGridItem = ({
   };
 
   const handleCopy = () => {
-    const text = "diamondfelix006@gmail.com";
-    navigator.clipboard.writeText(text);
-    setCopied(true);
+    // Only use clipboard on the client side
+    if (typeof window !== "undefined" && window.navigator) {
+      const text = "diamondfelix006@gmail.com";
+      navigator.clipboard.writeText(text);
+      setCopied(true);
+    }
   };
+
+  if (!isClient) {
+    return null; // or a placeholder/skeleton
+  }
 
   return (
     <div
@@ -166,7 +182,7 @@ export const BentoGridItem = ({
               </div>
             </div>
           )}
-          {id === 6 && (
+          {id === 6 && isClient && (
             <div className="mt-5 relative">
               <div
                 className={`absolute -bottom-5 right-0 ${
