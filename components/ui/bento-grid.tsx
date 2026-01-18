@@ -8,7 +8,7 @@ import { IoCopyOutline } from "react-icons/io5";
 
 import dynamic from 'next/dynamic'
 
-const Lottie = dynamic(() => import('react-lottie'), {
+const Lottie = dynamic(() => import('lottie-react'), {
   ssr: false,
   loading: () => null // Optional: render nothing during loading
 })
@@ -70,14 +70,7 @@ export const BentoGridItem = ({
     setIsClient(true);
   }, []);
 
-  const defaultOptions = {
-    loop: copied,
-    autoplay: copied,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
+
 
   const handleCopy = () => {
     // Only use clipboard on the client side
@@ -115,11 +108,13 @@ export const BentoGridItem = ({
                 className={cn(imgClassName, "object-cover object-center")}
               />
             ) : (
-              <img
-                src={img}
-                alt={img}
-                className={cn(imgClassName, "object-cover object-center")}
-              />
+              img && (
+                <img
+                  src={img}
+                  alt={img}
+                  className={cn(imgClassName, "object-cover object-center")}
+                />
+              )
             )}
           </div>
         </div>
@@ -194,7 +189,12 @@ export const BentoGridItem = ({
                   copied ? "block" : "block"
                 }`}
               >
-                <Lottie options={defaultOptions} height={200} width={400} />
+                <Lottie 
+                  animationData={animationData}
+                  loop={copied}
+                  autoplay={copied}
+                  style={{ width: 400, height: 200 }}
+                />
               </div>
 
               <Button

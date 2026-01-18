@@ -2,7 +2,7 @@
 
 import animationData from "@/data/plane.json";
 import { useEffect, useState } from "react";
-import Lottie from "react-lottie";
+import Lottie from "lottie-react";
 
 const Preloader = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -23,23 +23,23 @@ const Preloader = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
 
   return (
     <div className="h-screen w-screen bg-inherit flex items-center justify-center">
-      {/* <Lottie options={defaultOptions} width={200} height={200} /> */}
       {isMobile ? (
-        <Lottie options={defaultOptions} width={150} height={150} />
+        <Lottie 
+          animationData={animationData} 
+          loop 
+          autoplay 
+          style={{ width: 150, height: 150 }}
+        />
       ) : (
-        <Lottie options={defaultOptions} width={200} height={200} />
+        <Lottie 
+          animationData={animationData} 
+          loop 
+          autoplay 
+          style={{ width: 200, height: 200 }}
+        />
       )}
     </div>
   );

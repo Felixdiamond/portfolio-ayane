@@ -1,81 +1,86 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+@theme {
+  /* Light mode colors */
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(17.65% 0.005 285.75);
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(17.65% 0.005 285.75);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+  --color-popover: oklch(100% 0 0);
+  --color-popover-foreground: oklch(17.65% 0.005 285.75);
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+  --color-primary: oklch(24.51% 0.005 285.75);
+  --color-primary-foreground: oklch(98.04% 0 0);
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+  --color-secondary: oklch(95.88% 0.004 285.75);
+  --color-secondary-foreground: oklch(24.51% 0.005 285.75);
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+  --color-muted: oklch(95.88% 0.004 285.75);
+  --color-muted-foreground: oklch(60.78% 0.003 285.75);
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+  --color-accent: oklch(95.88% 0.004 285.75);
+  --color-accent-foreground: oklch(24.51% 0.005 285.75);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+  --color-destructive: oklch(62.75% 0.224 29.234);
+  --color-destructive-foreground: oklch(98.04% 0 0);
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+  --color-border: oklch(90% 0.005 285.75);
+  --color-input: oklch(90% 0.005 285.75);
+  --color-ring: oklch(17.65% 0.005 285.75);
 
-    --radius: 0.5rem;
-  }
+  --radius-default: 0.5rem;
+}
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+@theme dark {
+  --color-background: oklch(17.65% 0.005 285.75);
+  --color-foreground: oklch(98.04% 0 0);
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+  --color-card: oklch(17.65% 0.005 285.75);
+  --color-card-foreground: oklch(98.04% 0 0);
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+  --color-popover: oklch(17.65% 0.005 285.75);
+  --color-popover-foreground: oklch(98.04% 0 0);
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+  --color-primary: oklch(98.04% 0 0);
+  --color-primary-foreground: oklch(24.51% 0.005 285.75);
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+  --color-secondary: oklch(28.82% 0.003 285.75);
+  --color-secondary-foreground: oklch(98.04% 0 0);
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+  --color-muted: oklch(28.82% 0.003 285.75);
+  --color-muted-foreground: oklch(71.96% 0.004 285.75);
 
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+  --color-accent: oklch(28.82% 0.003 285.75);
+  --color-accent-foreground: oklch(98.04% 0 0);
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+  --color-destructive: oklch(42.65% 0.172 29.234);
+  --color-destructive-foreground: oklch(98.04% 0 0);
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-  }
+  --color-border: oklch(28.82% 0.003 285.75);
+  --color-input: oklch(28.82% 0.003 285.75);
+  --color-ring: oklch(77.25% 0.004 285.75);
 }
 
 @layer base {
   * {
-    @apply border-border !scroll-smooth;
+    border-color: var(--color-border);
+    scroll-behavior: smooth !important;
   }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
   }
+
   button {
-    @apply active:outline-none;
+    outline: none;
+  }
+
+  button:active {
+    outline: none;
   }
 }
 
@@ -90,5 +95,5 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif !important; 
+  font-family: 'Inter', sans-serif !important;
 }
