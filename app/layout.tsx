@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://portfolio-ayane.vercel.app'),
   title: "Felix Dawodu - Full Stack Developer Portfolio",
-  description: "Portfolio of Felix Dawodu, an innovative Full Stack Developer with expertise in React, Node.js, and cutting-edge web technologies.",
+  description: "Portfolio of Felix Dawodu, an innovative Full Stack Developer with expertise in React, Nodeq.js, and cutting-edge web technologies.",
   authors: [{ name: "Felix Dawodu" }],
   keywords: [
     "Full Stack Developer",
@@ -71,6 +71,8 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
 };
 
+import { Navbar } from "@/components/ui/Navbar";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -90,6 +92,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar />
           {children}
         </ThemeProvider>
       </body>

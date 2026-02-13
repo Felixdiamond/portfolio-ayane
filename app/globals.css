@@ -2,98 +2,195 @@
 @import "tailwindcss";
 
 @theme {
-  /* Light mode colors */
-  --color-background: oklch(100% 0 0);
-  --color-foreground: oklch(17.65% 0.005 285.75);
+  /* ============================================
+     UNIFIED DARK DESIGN SYSTEM
+     Theme: Dark & Sophisticated
+     ============================================ */
 
-  --color-card: oklch(100% 0 0);
-  --color-card-foreground: oklch(17.65% 0.005 285.75);
+  /* Background Scale - Unified Dark Shades */
+  --color-void: oklch(2% 0 0);
+  /* Deepest dark - footer/hero */
+  --color-abyss: oklch(4% 0 0);
+  /* Primary sections */
+  --color-surface: oklch(8% 0 0);
+  /* Cards/elevated elements */
+  --color-elevated: oklch(12% 0 0);
+  /* Hover states */
 
-  --color-popover: oklch(100% 0 0);
-  --color-popover-foreground: oklch(17.65% 0.005 285.75);
+  /* Text Scale - Neutral Hierarchy */
+  --color-text-primary: oklch(95% 0 0);
+  --color-text-secondary: oklch(70% 0 0);
+  --color-text-muted: oklch(50% 0 0);
+  --color-text-faint: oklch(30% 0 0);
 
-  --color-primary: oklch(24.51% 0.005 285.75);
-  --color-primary-foreground: oklch(98.04% 0 0);
+  /* Purple Accent System - Primary Brand Color */
+  --color-accent: oklch(70% 0.15 280);
+  --color-accent-hover: oklch(80% 0.18 280);
+  --color-accent-muted: oklch(50% 0.10 280);
+  --color-accent-glow: oklch(60% 0.20 280);
 
-  --color-secondary: oklch(95.88% 0.004 285.75);
-  --color-secondary-foreground: oklch(24.51% 0.005 285.75);
+  /* Border Scale */
+  --color-border: oklch(20% 0 0);
+  --color-border-subtle: oklch(15% 0 0);
+  --color-border-accent: oklch(40% 0.10 280);
 
-  --color-muted: oklch(95.88% 0.004 285.75);
-  --color-muted-foreground: oklch(60.78% 0.003 285.75);
+  /* Semantic Colors */
+  --color-success: oklch(70% 0.15 145);
+  --color-warning: oklch(75% 0.15 85);
+  --color-error: oklch(60% 0.20 25);
 
-  --color-accent: oklch(95.88% 0.004 285.75);
-  --color-accent-foreground: oklch(24.51% 0.005 285.75);
+  /* Legacy Tailwind Tokens (mapped to new system) */
+  --color-background: var(--color-void);
+  --color-foreground: var(--color-text-primary);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-text-primary);
+  --color-primary: var(--color-text-primary);
+  --color-primary-foreground: var(--color-void);
+  --color-secondary: var(--color-elevated);
+  --color-secondary-foreground: var(--color-text-primary);
+  --color-muted: var(--color-elevated);
+  --color-muted-foreground: var(--color-text-muted);
 
-  --color-destructive: oklch(62.75% 0.224 29.234);
-  --color-destructive-foreground: oklch(98.04% 0 0);
+  /* Typography Scale - Major Third (1.25 ratio) */
+  --text-xs: 0.75rem;
+  /* 12px */
+  --text-sm: 0.875rem;
+  /* 14px */
+  --text-base: 1rem;
+  /* 16px */
+  --text-lg: 1.25rem;
+  /* 20px */
+  --text-xl: 1.5rem;
+  /* 24px */
+  --text-2xl: 2rem;
+  /* 32px */
+  --text-3xl: 2.5rem;
+  /* 40px */
+  --text-4xl: 3rem;
+  /* 48px */
+  --text-5xl: 4rem;
+  /* 64px */
+  --text-6xl: 5rem;
+  /* 80px */
+  --text-7xl: 6rem;
+  /* 96px */
+  --text-8xl: 8rem;
+  /* 128px */
+  --text-9xl: 10rem;
+  /* 160px */
 
-  --color-border: oklch(90% 0.005 285.75);
-  --color-input: oklch(90% 0.005 285.75);
-  --color-ring: oklch(17.65% 0.005 285.75);
+  /* Font Families */
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
+  /* Spacing Scale (4px base) */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  /* 4px */
+  --space-2: 0.5rem;
+  /* 8px */
+  --space-3: 0.75rem;
+  /* 12px */
+  --space-4: 1rem;
+  /* 16px */
+  --space-5: 1.25rem;
+  /* 20px */
+  --space-6: 1.5rem;
+  /* 24px */
+  --space-8: 2rem;
+  /* 32px */
+  --space-10: 2.5rem;
+  /* 40px */
+  --space-12: 3rem;
+  /* 48px */
+  --space-16: 4rem;
+  /* 64px */
+  --space-20: 5rem;
+  /* 80px */
+  --space-24: 6rem;
+  /* 96px */
+  --space-32: 8rem;
+  /* 128px */
+  --space-40: 10rem;
+  /* 160px */
+
+  /* Section Spacing (Responsive) */
+  --space-section-y: clamp(5rem, 10vh, 10rem);
+  --space-container-x: clamp(1.25rem, 5vw, 5rem);
+
+  /* Motion Tokens */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
   --radius-default: 0.5rem;
-}
-
-@theme dark {
-  --color-background: oklch(17.65% 0.005 285.75);
-  --color-foreground: oklch(98.04% 0 0);
-
-  --color-card: oklch(17.65% 0.005 285.75);
-  --color-card-foreground: oklch(98.04% 0 0);
-
-  --color-popover: oklch(17.65% 0.005 285.75);
-  --color-popover-foreground: oklch(98.04% 0 0);
-
-  --color-primary: oklch(98.04% 0 0);
-  --color-primary-foreground: oklch(24.51% 0.005 285.75);
-
-  --color-secondary: oklch(28.82% 0.003 285.75);
-  --color-secondary-foreground: oklch(98.04% 0 0);
-
-  --color-muted: oklch(28.82% 0.003 285.75);
-  --color-muted-foreground: oklch(71.96% 0.004 285.75);
-
-  --color-accent: oklch(28.82% 0.003 285.75);
-  --color-accent-foreground: oklch(98.04% 0 0);
-
-  --color-destructive: oklch(42.65% 0.172 29.234);
-  --color-destructive-foreground: oklch(98.04% 0 0);
-
-  --color-border: oklch(28.82% 0.003 285.75);
-  --color-input: oklch(28.82% 0.003 285.75);
-  --color-ring: oklch(77.25% 0.004 285.75);
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
-    scroll-behavior: smooth !important;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-  }
-
-  button {
-    outline: none;
-  }
-
-  button:active {
-    outline: none;
+    font-family: var(--font-body);
+    cursor: none;
+    overflow-x: hidden;
   }
 }
 
 @layer utilities {
+
+  /* Noise Texture Overlay */
+  .noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* Section Heading Utility */
   .heading {
-    @apply font-bold text-4xl md:text-5xl text-center;
+    font-weight: 700;
+    font-size: var(--text-4xl);
+    text-align: center;
   }
 
-  .black-gradient {
-    background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
+  @media (min-width: 768px) {
+    .heading {
+      font-size: var(--text-5xl);
+    }
   }
-}
 
-body {
-  font-family: 'Inter', sans-serif !important;
+  /* Scrollbar Hiding */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Text Outline for Contact Section */
+  .font-outline-2 {
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5);
+    color: transparent;
+  }
 }

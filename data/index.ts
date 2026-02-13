@@ -72,22 +72,14 @@ export const gridItems = [
 export const projects = [
   {
     id: 1,
-    title: "9notes: AI-Powered Smart Notes",
-    des: "An intelligent note-taking app that leverages AI to answer questions based on your note context, enhancing productivity and learning.",
-    img: "/nine-notes.svg",
-    iconLists: ["/tail.svg", "/ts.svg", "/sb.svg", "./mongo.svg", "/prisma.svg"],
-    link: "nine-notes.vercel.app",
+    title: "VideoTranslator: Open-Source Voice Dubber",
+    des: "A GPU-accelerated pipeline for automatic video transcription, translation, and dubbing across 8+ languages using MeloTTS and FFmpeg.",
+    img: "/video-translator.svg",
+    iconLists: ["/py.svg", "/openai.svg", "/librosa.svg", "/hf.svg", "/ffmpeg.svg"],
+    link: "github.com/Felixdiamond/videotranslator",
   },
   {
     id: 2,
-    title: "ResumeAI: Dual-Mode Resume Reviewer",
-    des: "An innovative resume review tool using Anthropic API to generate constructive or challenging feedback based on selected mode.",
-    img: "/resume-review.svg",
-    iconLists: ["/next.svg", "/tail.svg", "/ace.svg", "/anthropic.svg", "/framer.svg"],
-    link: "resume-review-lake.vercel.app",
-  },
-  {
-    id: 3,
     title: "nineBooks: Comprehensive E-Learning Platform",
     des: "A versatile e-learning platform offering e-books, video courses, and audiobooks for an immersive educational experience.",
     img: "/nine-books.svg",
@@ -95,13 +87,21 @@ export const projects = [
     link: "nine-books.vercel.app",
   },
   {
-    id: 4,
-    title: "VideoTranslator: Open-Source Voice Dubber",
-    des: "An innovative Python-based tool for automatic voice dubbing, making content accessible across languages.",
-    img: "/video-translator.svg",
-    iconLists: ["/py.svg", "/openai.svg", "/librosa.svg", "/hf.svg", "/ffmpeg.svg"],
-    link: "github.com/Felixdiamond/videotranslator",
+    id: 3,
+    title: "Free AI Gateway: Access AI models for free",
+    des: "A self-hosted REST API that reverse-engineers web interfaces to provide structured, streaming access to chatGPT, gemini and grok without API keys.",
+    img: "/free_ai_gateway.png",
+    iconLists: ["/py.svg", "/fastapi.svg", "/chromium.svg", "/docker.svg"],
+    link: "github.com/Felixdiamond/free-ai-gateway",
   },
+  {
+    id: 4,
+    title: "Deepseek on Android: Edge AI Infrastructure",
+    des: "A complete toolchain for running 1.5B-7B Large Language Models locally on Android devices via Termux, enabling true offline AI capabilities.",
+    img: "/deep-on-android.webp",
+    iconLists: ["/bash.svg", "/termux.svg", "/ollama.svg", "/linux.svg"],
+    link: "github.com/Felixdiamond/deepseek-on-android",
+  }
 ];
 
 export const testimonials = [
@@ -113,7 +113,7 @@ export const testimonials = [
   },
   {
     quote:
-      "Collaborating with Felix was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Felix's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Felix is the ideal partner.",
+      "Collaborating with Felix was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. If you're seeking to elevate your website and elevate your brand, Felix is the ideal partner.",
     name: "Emmanuel Oye",
     title: "C.E.O - O.G Creations",
   },
@@ -127,17 +127,18 @@ export const testimonials = [
 
 export const workExperience = [
   {
-    id: 1,
-    title: "Full Stack Developer",
-    desc: "Developed intuitive features, engineered full-stack web applications, and spearheaded large-scale software deployments using CI/CD pipelines.",
-    className: "md:col-span-2",
-    thumbnail: "/exp1.svg",
+    year: "2022 — 2023",
+    role: "Full Stack Developer",
+    company: "Lomosoft / ChainKoffee",
+    description: "Architected modular microservices and REST APIs, boosting data throughput by 30%. Designed optimized SQL schemas for high-volume traffic.",
+    tags: ["Node.js", "PostgreSQL", "React", "System Design"]
   },
   {
-    title: "Full Stack Software Engineer",
-    desc: "Led major website redesign, developed performant web applications, created reusable APIs and microservices, and designed optimized MySQL databases.",
-    className: "md:col-span-2",
-    thumbnail: "/exp4.svg",
+    year: "2023 — Present",
+    role: "Freelance Systems Engineer",
+    company: "Self-Employed",
+    description: "Delivering high-performance backend systems and automation tools. Built GPU-accelerated AI pipelines and CLI utilities that reduced client workflows by 90%.",
+    tags: ["Python", "FastAPI", "CI/CD", "Automation"]
   },
 ];
 

@@ -1,21 +1,26 @@
 "use client";
+
 import { Suspense, lazy, useEffect, useState } from 'react';
-import { FloatingNav } from "@/components/ui/floating-navbar";
-import { navItems } from "@/data";
+import SmoothScroll from "@/components/ui/SmoothScroll";
+import CustomCursor from "@/components/ui/CustomCursor";
+import { TransitionProvider } from "@/context/TransitionContext";
 
-// import preloader using next dynamic import
-import dynamic from 'next/dynamic';
-const Preloader = dynamic(() => import('@/components/Preloader'), {ssr: false});
-
-const Hero = lazy(() => import('@/components/Hero'));
-const Grid = lazy(() => import('@/components/Grid'));
+// Lazy imports
 const RecentProjects = lazy(() => import('@/components/Projects'));
-const Testimonials = lazy(() => import('@/components/Testimonials'));
+const ClientFeedback = lazy(() => import('@/components/ClientFeedback'));
 const Experience = lazy(() => import('@/components/Experience'));
-const Approach = lazy(() => import('@/components/Approach'));
-const Footer = lazy(() => import('@/components/Footer'));
-const MobileFooter = lazy(() => import('@/components/MobileFooter'));
+const Construct = lazy(() => import('@/components/Construct'));
+const Contact = lazy(() => import('@/components/Contact'));
 const Socials = lazy(() => import('@/components/Socials'));
+
+// Static/Dynamic imports
+import dynamic from 'next/dynamic';
+import Philosophy from "@/components/Philosophy";
+import ParallaxSection from "@/components/ui/ParallaxSection";
+import FeaturedProjects from "@/components/FeaturedProjects";
+import { HeroSection } from '@/components/hero';
+
+const Preloader = dynamic(() => import('@/components/Preloader'), { ssr: false });
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -24,33 +29,50 @@ export default function Home() {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-
-    // Set the initial state
     handleResize();
-
-    // Add event listener
     window.addEventListener("resize", handleResize);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
-    <main className="relative bg-black-100 flex justify-center items-center flex-col mx:auto sm:px-10 px-5 overflow-clip">
-      <FloatingNav navItems={navItems} />
-      <Suspense fallback={<Preloader />}>
-        <Hero />
-        <Grid />
-        <RecentProjects />
-        <Testimonials />
-        <Experience />
-        <Approach />
-        {
-          isMobile ? <MobileFooter /> : <Footer />
-        }
-        <Socials />
-      </Suspense>
-    </main>
+    <TransitionProvider>
+        <SmoothScroll>
+          <CustomCursor />
+          
+          <Preloader />
+
+          {/* Dynamic WebGL Background Noise */}
+          <div className="noise mix-blend-overlay opacity-20 pointer-events-none fixed inset-0 z-40" />
+          
+          <main className="relative flex justify-center items-center flex-col mx-auto overflow-clip">
+            
+            <Suspense fallback={null}>
+              {/* Awwwards Level Interactive 3D Hero */}
+              <HeroSection />
+
+              {/* Awwwards Level About Section - Pinned Reveal */}
+              <ParallaxSection zIndex={10}>
+                  <Philosophy />
+              </ParallaxSection>
+
+              {/* Horizontal Scroll Projects Section */}
+              <FeaturedProjects />
+
+              {/* Awwwards Level Client Feedback Section */}
+              <ClientFeedback />
+
+              {/* Work Experience Section */}
+              <Experience />
+
+              {/* The Construct - Creative Labs Section */}
+              <Construct />
+
+              {/* Contact / Footer */}
+              <Contact />
+              
+            </Suspense>
+          </main>
+        </SmoothScroll>
+    </TransitionProvider>
   );
 }

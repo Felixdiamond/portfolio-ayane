@@ -1,59 +1,105 @@
 "use client";
 
 import { projects } from "@/data";
-import { PinContainer } from "./ui/3d-pin";
 import { IoNavigate } from "react-icons/io5";
+import React, { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import LiquidText from "./ui/LiquidText";
+import Magnetic from "./ui/Magnetic";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const RecentProjects = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const projects = gsap.utils.toArray<HTMLElement>(".project-card");
+    
+    projects.forEach((project) => {
+        gsap.fromTo(project.querySelector(".project-image"), 
+            {
+                y: -50,
+                scale: 1.1
+            },
+            {
+                y: 50,
+                scale: 1,
+                scrollTrigger: {
+                    trigger: project,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                }
+            }
+        );
+    });
+
+  }, { scope: containerRef });
+
   return (
-    <div className="py-20" id="projects">
-      <h1 className="heading">
-        A small selection of{" "}
-        <span className="text-purple">recent projects</span>
-      </h1>
-      <div className="flex flex-wrap items-center justify-center p-4 gap-x-24 gap-y-8 mt-10">
-        {projects.map((project) => (
+    <div ref={containerRef} className="py-20 w-full relative z-10" id="projects">
+      <div className="mb-20">
+         <LiquidText 
+            text="SELECTED" 
+            className="text-[10vw] font-bold leading-[0.8] tracking-tighter text-white/5 opacity-50 text-center"
+         />
+         <LiquidText 
+            text="WORKS" 
+            className="text-[10vw] font-bold leading-[0.8] tracking-tighter text-white text-center -mt-[5vw] mix-blend-difference"
+         />
+      </div>
+
+      <div className="flex flex-col gap-32 px-5 md:px-10 max-w-7xl mx-auto">
+        {projects.map((project, index) => (
           <div
             key={project.id}
-            className="sm:h-[41rem] h-[32rem] lg:min-h-[32.5rem] flex items-center justify-center sm:w-[570px] w-[80vw]"
+            className={`project-card flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} gap-10 items-center justify-center`}
           >
-            <PinContainer title={project.link} href={project.id === 3 ? 'https://odohs-bookstore.vercel.app' : `https://${project.link}`}>
-              <div className="relative flex items-center justify-center sm:w-[570px] w-[80vw] overflow-hidden sm:h-[40vh] h-[30vh] mb-10">
-                <div className="relative w-full h-full overflow-hidden lg:rounded-3xl bg-[#13162d]">
-                  <img src="/bg.png" alt="bg-img" />
+            {/* Image Section */}
+            <div className="w-full lg:w-3/5 h-[40vh] md:h-[60vh] relative overflow-hidden rounded-md border border-white/10 group">
+                <div className="project-image absolute inset-0 w-full h-[120%] -top-[10%]">
+                    {/* Background */}
+                     <div className="absolute inset-0 bg-[#13162d] opacity-50 z-0"/>
+                     <Image 
+                        src={project.img} 
+                        alt={project.title} 
+                        fill 
+                        className="object-cover object-center opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                     />
                 </div>
-                <img
-                  src={project.img}
-                  alt={project.title}
-                  className="z-10 absolute bottom-0"
-                />
-              </div>
-              <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
-                {project.title}
-              </h1>
-              <p className="lg:text-xl lg:font-normal font-light text-sm line-clamp-2">
-                {project.des}
-              </p>
-              <div className="flex items-center justify-between mt-7 mb-3">
-                <div className="flex items-center">
-                  {project.iconLists.map((icon, index) => (
-                    <div
-                      key={icon}
-                      className="border border-white/[0.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                      style={{ transform: `translateX(-${5 * index * 2}px)` }}
-                    >
-                      <img src={icon} alt="icon" className="p-2" />
-                    </div>
-                  ))}
+            </div>
+
+            {/* Content Section */}
+            <div className="w-full lg:w-2/5 flex flex-col gap-6">
+                <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter text-white">
+                    {project.title}
+                </h2>
+                <div className="h-1 w-20 bg-white/20" />
+                
+                <p className="text-neutral-400 leading-relaxed">
+                    {project.des}
+                </p>
+
+                <div className="flex items-center gap-4 mt-4">
+                    {project.iconLists.map((icon, i) => (
+                        <div key={i} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-black/50 overflow-hidden p-2">
+                             <img src={icon} alt="tech" className="w-full h-full object-contain" />
+                        </div>
+                    ))}
                 </div>
-                <div className="flex justify-center items-center">
-                    <p className="flex lg:text-xl md:text-xs text-sm text-purple">
-                        Check Live Site
-                    </p>
-                    <IoNavigate className="ms-2" color="#CBACF9" size={16} />
+
+                <div className="flex items-center gap-4 mt-6">
+                    <Magnetic>
+                         <a href={project.id === 3 ? 'https://odohs-bookstore.vercel.app' : `https://${project.link}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm uppercase tracking-widest hover:text-purple transition-colors">
+                            <span>Live Site</span>
+                            <IoNavigate />
+                         </a>
+                    </Magnetic>
                 </div>
-              </div>
-            </PinContainer>
+            </div>
           </div>
         ))}
       </div>

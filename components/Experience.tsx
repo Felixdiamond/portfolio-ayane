@@ -1,39 +1,188 @@
+"use client";
+import React, { useRef, useEffect } from "react";
 import { workExperience } from "@/data";
-import { Button } from "./ui/moving-border";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-const Experience = () => {
+gsap.registerPlugin(ScrollTrigger);
+
+const FallingAsterisks = () => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        let w = canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth;
+        let h = canvas.height = canvas.parentElement?.offsetHeight || window.innerHeight;
+        
+        const symbols = "*";
+        const fontSize = 14;
+        const columns = w / fontSize;
+        const drops: number[] = [];
+
+        for(let x = 0; x < columns; x++) drops[x] = 1;
+
+        const draw = () => {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)'; // Trail effect
+            ctx.fillRect(0, 0, w, h);
+            
+            ctx.fillStyle = '#333'; // Text Color (Dark Grey)
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = symbols;
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if(drops[i] * fontSize > h && Math.random() > 0.975)
+                    drops[i] = 0;
+                
+                drops[i]++;
+            }
+        };
+
+        const interval = setInterval(draw, 33);
+        
+        const handleResize = () => {
+             w = canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth;
+             h = canvas.height = canvas.parentElement?.offsetHeight || window.innerHeight;
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-30 pointer-events-none mix-blend-overlay" />;
+};
+
+export default function Experience() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const items = gsap.utils.toArray<HTMLElement>(".exp-item");
+
+    items.forEach((item, i) => {
+        // Entry Animation: Staggered Fade Up
+        gsap.fromTo(item, 
+            { y: 50, opacity: 0, scale: 0.95 },
+            {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top bottom-=100", // Trigger a bit earlier
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+        
+        // Animated Border
+        const line = item.querySelector('.exp-line');
+        if(line) {
+             gsap.fromTo(line,
+                { height: '0%' },
+                { 
+                    height: '100%', 
+                    duration: 1,
+                    ease: "power1.inOut",
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top center+=100",
+                        end: "bottom center",
+                        scrub: 0.5
+                    }
+                }
+             )
+        }
+    });
+
+  }, { scope: containerRef });
+
   return (
-    <section id="experience" className="py-20">
-      <h1 className="heading">
-        A summary of my
-        <span className="text-purple"> Work Experience</span>
-      </h1>
-      <div className="w-full mt-12 grid lg:grid-cols-4 grid-cols-1 gap-10">
-        {workExperience.map((card, index) => (
-          <Button
-            key={index}
-            duration={Math.floor(Math.random() * 10000) + 10000}
-            borderRadius="1rem"
-            className="p-4 bg-black-100"
-            borderClassName="h-20 w-20 opacity-[0.8] bg-[radial-gradient(#4e4e94_40%,transparent_60%)]"
-            disabled
-          >
-            <div className="flex lg:flex-row flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-2">
-              <img src={card.thumbnail} alt={card.thumbnail} className="lg:w-32 md:w-20 w-16" />
-              <div className="lg:ms-5">
-                <h1 className="text-start text-xl md:text-2xl font-bold">
-                  {card.title}
-                </h1>
-                <p className="text-start text-white-100 mt-3 font-semibold">
-                  {card.desc}
-                </p>
+    <section ref={containerRef} className="relative w-full min-h-screen py-40 bg-abyss z-20">
+      
+      {/* Background with Falling Asterisks */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <FallingAsterisks />
+          {/* Subtle gradient orbs for depth */}
+          <div className="absolute top-[20%] right-[10%] w-[40vw] h-[40vw] bg-accent-glow/10 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-5 md:px-10 relative z-10 pt-20"> {/* Added top padding for spacing */}
+          
+          {/* Section Header */}
+          <div className="mb-32 pl-0 md:pl-10 border-l border-border md:border-none">
+              <h2 className="text-sm font-bold uppercase tracking-[0.5em] text-text-muted mb-6">
+                  (2021 — PRESENT)
+              </h2>
+              <div className="overflow-hidden">
+                  <h1 className="text-6xl md:text-9xl font-black text-text-primary uppercase tracking-tighter mix-blend-difference leading-[0.85]">
+                      Career<span className="text-text-faint">path</span>
+                  </h1>
               </div>
-            </div>
-          </Button>
-        ))}
+          </div>
+
+          {/* Experience List - Holographic/Data Style */}
+          <div className="flex flex-col gap-2 relative">
+             {workExperience.map((item, index) => (
+                 <div 
+                    key={item.id} 
+                    className="exp-item group relative grid grid-cols-1 md:grid-cols-12 gap-8 py-16 md:py-24 border-t border-border-subtle hover:bg-elevated/20 transition-colors duration-500 px-4 md:px-8"
+                 >
+                    {/* Index & Year - Glitchy Tech Vibe */}
+                    <div className="md:col-span-2 flex flex-col justify-between h-full">
+                         <span className="text-sm font-mono text-text-muted">0{index + 1}</span>
+                         {/* Placeholder Year logic - in real app, add dates to data */}
+                         <span className="text-xs font-bold uppercase tracking-widest text-text-muted mt-10 md:mt-0 rotate-0 md:-rotate-90 origin-top-left translate-y-full md:translate-y-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                             {item.year}
+                         </span>
+                    </div>
+
+                    {/* Role & Title - Massive Typography */}
+                    <div className="md:col-span-10 flex flex-col gap-8 md:gap-12 pl-4 md:pl-10 border-l border-border-subtle relative">
+                        {/* Animated Border Line */}
+                        <div className="exp-line absolute left-0 top-0 w-[2px] bg-accent h-0" />
+                        
+                        <div className="flex flex-col gap-2">
+                             <h3 className="text-4xl md:text-7xl font-bold text-text-secondary uppercase tracking-tighter leading-[0.9] group-hover:text-text-primary transition-colors duration-300">
+                                 {item.role}
+                             </h3>
+                             <p className="text-lg md:text-xl font-medium text-text-muted group-hover:text-text-secondary transition-colors uppercase tracking-tight">
+                                  {item.company}
+                             </p>
+                        </div>
+
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                            <p className="text-base md:text-lg text-text-muted leading-relaxed max-w-2xl group-hover:text-text-secondary transition-colors">
+                                {item.description}
+                            </p>
+                            
+                            {/* Tech Stack Pills */}
+                            <div className="flex flex-wrap gap-2 justify-end">
+                                {item.tags.map((tag, index) => (
+                                    <span key={index} className="px-3 py-1 rounded-full border border-border text-xs uppercase text-text-muted group-hover:border-accent/50 group-hover:text-accent transition-colors bg-surface/50">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                    </div>
+                 </div>
+             ))}
+             {/* Final Border */}
+             <div className="w-full h-px bg-border-subtle" />
+          </div>
       </div>
     </section>
   );
-};
-
-export default Experience;
+}
