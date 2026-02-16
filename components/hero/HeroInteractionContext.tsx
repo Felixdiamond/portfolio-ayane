@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useRef, useEffect, ReactNode } fro
 import * as THREE from "three";
 
 interface BlobPosition {
-  x: number; // Screen coordinates
+  x: number;
   y: number;
   screenX: number;
   screenY: number;

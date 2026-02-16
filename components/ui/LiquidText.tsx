@@ -13,9 +13,7 @@ export default function LiquidText({ text, className = "" }: LiquidTextProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
   const [hovered, setHovered] = useState(false);
   
-  // Use React's useId for SSR-safe unique IDs
   const uniqueId = useId();
-  // Sanitize text: remove special characters and spaces for valid CSS selector
   const sanitizedText = text.replace(/[^a-zA-Z0-9-_]/g, "-");
   const filterId = `liquid-filter-${sanitizedText}-${uniqueId}`;
 
@@ -25,16 +23,13 @@ export default function LiquidText({ text, className = "" }: LiquidTextProps) {
         defaults: { ease: "power4.out" },
       });
 
-      // Turbulence setup
       const turbulenceElement = document.querySelector(`#${CSS.escape(filterId)} feTurbulence`);
       
-      // Intro Animation
       if (turbulenceElement) {
         tl.to(turbulenceElement, { attr: { baseFrequency: "0 0" }, duration: 2.5, ease: "slow(0.7, 0.7, false)" }, 0);
       }
       tl.to(textRef.current, { y: 0, opacity: 1, duration: 2, ease: "power3.out" }, 0.2);
 
-      // Interactive / Hover effect
       if (hovered && turbulenceElement) {
           gsap.to(turbulenceElement, {
              attr: { baseFrequency: "0.1 0.4" },

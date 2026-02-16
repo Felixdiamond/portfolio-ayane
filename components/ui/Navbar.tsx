@@ -20,7 +20,6 @@ export const Navbar = () => {
     }
   });
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -52,7 +51,6 @@ export const Navbar = () => {
           "shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]"
         )}
       >
-        {/* Logo */}
         <Link href="/" className="relative z-50">
            <Magnetic>
               <div className="flex flex-col leading-none font-bold text-xl tracking-tighter mix-blend-difference text-white">
@@ -62,7 +60,6 @@ export const Navbar = () => {
            </Magnetic>
         </Link>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link, idx) => (
             <Magnetic key={idx}>
@@ -77,7 +74,6 @@ export const Navbar = () => {
           ))}
         </div>
 
-        {/* Mobile Menu Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden relative z-50 p-2 text-white hover:bg-white/10 rounded-full transition-colors"
@@ -86,7 +82,6 @@ export const Navbar = () => {
         </button>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -116,7 +111,6 @@ export const Navbar = () => {
               ))}
             </div>
             
-             {/* Decorative Background Elements */}
             <div className="absolute inset-0 pointer-events-none opacity-20">
                 <div className="absolute top-[20%] left-[10%] w-64 h-64 bg-purple-500/30 rounded-full blur-[100px]" />
                 <div className="absolute bottom-[20%] right-[10%] w-80 h-80 bg-blue-500/20 rounded-full blur-[100px]" />

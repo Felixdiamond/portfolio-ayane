@@ -25,7 +25,6 @@ export default function Contact() {
       ref={containerRef} 
       className="relative z-0 w-full min-h-[80vh] bg-void text-text-primary overflow-hidden flex flex-col justify-end"
     >
-      {/* Antigravity Background */}
       <div className="absolute inset-0 z-0 opacity-60">
         <Antigravity
             count={300}
@@ -46,7 +45,6 @@ export default function Contact() {
         />
       </div>
 
-      {/* Background Grain */}
       <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay z-[1]">
         <svg className="w-full h-full">
             <filter id="noiseFilter">
@@ -61,7 +59,6 @@ export default function Contact() {
         </svg>
       </div>
 
-      {/* Main Content */}
       <motion.div 
         style={{ y: useTransform(scrollYProgress, [0, 1], [-50, 0]) }}
         className="relative z-10 container mx-auto px-6 py-20 flex flex-col justify-between h-full"
@@ -100,7 +97,6 @@ export default function Contact() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-20 pt-20 border-t border-border">
-            {/* Contact Info */}
             <div className="flex flex-col gap-6">
                 <h3 className="text-xl font-medium text-text-secondary">Contact</h3>
                 <MagneticButton 
@@ -113,7 +109,6 @@ export default function Contact() {
                 <p className="text-text-muted">+2348128939779</p>
             </div>
 
-            {/* Socials */}
             <div className="flex flex-col gap-6">
                 <h3 className="text-xl font-medium text-text-secondary">Socials</h3>
                 <div className="flex flex-col items-start gap-4">
@@ -132,7 +127,6 @@ export default function Contact() {
                 </div>
             </div>
 
-            {/* Location / Time */}
             <div className="flex flex-col gap-6 md:text-right">
                 <h3 className="text-xl font-medium text-text-secondary">Location</h3>
                 <p className="text-lg">Lagos, Nigeria</p>
@@ -141,7 +135,6 @@ export default function Contact() {
         </div>
       </motion.div>
 
-      {/* Subtle Footer Image */}
       <div className="absolute bottom-0 right-0 z-0 pointer-events-none mix-blend-luminosity opacity-20">
         <Image
             src="/yachiru_bye.png" 

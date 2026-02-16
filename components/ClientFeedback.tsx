@@ -19,7 +19,6 @@ export default function ClientFeedback() {
     const container = containerRef.current;
     if (!container) return;
 
-    // Pin the container and update index based on scroll
     ScrollTrigger.create({
       trigger: container,
       start: "top top",
@@ -27,8 +26,6 @@ export default function ClientFeedback() {
       pin: ".content-wrapper",
       scrub: true,
       onUpdate: (self) => {
-        // Calculate index based on progress (0 to 1)
-        // Divide progress into segments for each testimonial
         const progress = self.progress;
         const total = testimonials.length;
         const index = Math.min(
@@ -44,21 +41,16 @@ export default function ClientFeedback() {
 
   return (
     <div ref={containerRef} className="relative z-20 w-full min-h-[300vh] bg-abyss">
-      
-      {/* Visual Transition from Previous Section */}
         <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-abyss to-transparent z-30 pointer-events-none" />
 
-      {/* Sticky Content Wrapper */}
       <div className="content-wrapper sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center bg-abyss">
         
-        {/* Background Gradients/Noise - Awwwards vibes */}
         <div className="absolute inset-0 z-0 opacity-20">
             <div className="absolute top-[20%] left-[20%] w-[30vw] h-[30vw] bg-accent-glow/40 rounded-full blur-[100px] animate-pulse" />
             <div className="absolute bottom-[20%] right-[20%] w-[25vw] h-[25vw] bg-accent-muted/40 rounded-full blur-[100px] animate-pulse delay-1000" />
             <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay" /> 
         </div>
 
-        {/* Static Header Elements */}
         <div className="absolute top-10 left-10 md:left-20 z-10 mix-blend-difference">
              <h2 className="text-sm md:text-base font-bold uppercase tracking-[0.3em] text-text-muted">
                 / Testimonials
@@ -77,7 +69,6 @@ export default function ClientFeedback() {
              ))}
         </div>
 
-        {/* Main Content Area */}
         <div className="relative z-10 max-w-5xl w-full px-6 md:px-10 flex flex-col items-center justify-center text-center">
             
             <FaQuoteLeft className="text-4xl md:text-6xl text-text-faint mb-10 opacity-50" />
@@ -92,12 +83,10 @@ export default function ClientFeedback() {
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                         className="flex flex-col items-center gap-8"
                     >
-                        {/* Quote Text */}
                         <p className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-text-primary leading-[1.3]">
                             &quot;{activeTestimonial.quote}&quot;
                         </p>
 
-                        {/* Author Details */}
                         <div className="flex flex-col items-center gap-2 mt-4">
                             <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent-hover">
                                 {activeTestimonial.name}
@@ -112,7 +101,6 @@ export default function ClientFeedback() {
             
         </div>
         
-        {/* Large stylized background text (Masked) */}
         <div className="absolute -bottom-[5vh] left-1/2 -translate-x-1/2 z-0 font-black text-[15vw] leading-none text-text-faint pointer-events-none whitespace-nowrap opacity-20 select-none">
             FEEDBACK
         </div>

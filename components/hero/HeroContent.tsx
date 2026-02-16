@@ -5,9 +5,6 @@ import { useState, useRef, useEffect } from "react";
 import { useBlobPosition } from "./HeroInteractionContext";
 import { useTransition } from "@/context/TransitionContext";
 
-// ============================================
-// RevealText: Text that reveals outline when blob is near
-// ============================================
 interface RevealTextProps {
   children: string;
   className?: string;
@@ -26,27 +23,22 @@ function RevealText({ children, className = "", delay = 0 }: RevealTextProps) {
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    // Distance from blob center to text center
     const dx = blobPosition.screenX - centerX;
     const dy = blobPosition.screenY - centerY;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    // Reveal when within ~200px, smooth falloff
     const threshold = 250;
     const amount = Math.max(0, 1 - distance / threshold);
     setRevealAmount(amount);
   }, [blobPosition]);
 
-  // Smooth the reveal
   const smoothReveal = useSpring(revealAmount, { stiffness: 100, damping: 20 });
 
   return (
     <motion.span
       ref={ref}
-      // RevealText doesn't manage its own entrance opacity anymore, parent does
       className={`relative inline-block ${className}`}
       style={{
-        // Interpolate between filled and outlined based on reveal
         color: `oklch(95% 0 0 / ${1 - revealAmount * 0.9})`,
         WebkitTextStroke: `${revealAmount * 2}px oklch(95% 0 0 / ${0.3 + revealAmount * 0.5})`,
         textShadow: revealAmount > 0.1 
@@ -59,9 +51,6 @@ function RevealText({ children, className = "", delay = 0 }: RevealTextProps) {
   );
 }
 
-// ============================================
-// MagneticButton: Subtle magnetic hover effect
-// ============================================
 function MagneticButton({ children, className }: { children: React.ReactNode; className?: string }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -90,9 +79,6 @@ function MagneticButton({ children, className }: { children: React.ReactNode; cl
   );
 }
 
-// ============================================
-// Main HeroContent Component
-// ============================================
 export default function HeroContent() {
   const { isLoaded } = useTransition();
 
@@ -100,7 +86,6 @@ export default function HeroContent() {
     <div className="relative z-10 flex flex-col items-center justify-center h-full w-full pointer-events-none">
       <div className="flex flex-col items-center justify-center max-w-[95vw] md:max-w-7xl mx-auto px-4 text-center">
         
-        {/* Main Name - MASSIVE with blob reveal */}
         <div className="mix-blend-difference">
           <h1 
             className="text-[18vw] md:text-[14vw] leading-[0.85] font-bold tracking-[-0.04em] text-text-primary uppercase select-none"
@@ -126,7 +111,6 @@ export default function HeroContent() {
           </h1>
         </div>
 
-        {/* Role / Subtitle - Technical aesthetic */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
@@ -140,7 +124,6 @@ export default function HeroContent() {
           <span className="hidden md:inline-block w-8 h-[1px] bg-border" />
         </motion.div>
 
-        {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.9 }}

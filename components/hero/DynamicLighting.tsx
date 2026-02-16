@@ -11,7 +11,6 @@ export default function DynamicLighting() {
 
   useFrame((state, delta) => {
     if (lightRef.current) {
-      // Lerp light position to follow mouse
       const x = smoothMouse.current.x * 5;
       const y = smoothMouse.current.y * 5;
       lightRef.current.position.lerp(new THREE.Vector3(x, y, 5), delta * 5);

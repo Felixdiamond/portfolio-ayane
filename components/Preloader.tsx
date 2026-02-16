@@ -8,19 +8,14 @@ import { useTransition } from "@/context/TransitionContext";
 
 const Preloader = () => {
   const { setIsLoaded } = useTransition();
-  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const lottieRef = useRef<any>(null);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    document.body.style.overflow = "hidden"; // Lock scroll
+    document.body.style.overflow = "hidden";
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      document.body.style.overflow = ""; // Unlock scroll
+      document.body.style.overflow = "";
     };
   }, []);
 
@@ -28,13 +23,13 @@ const Preloader = () => {
     const tl = gsap.timeline({
       onComplete: () => {
         setIsLoaded(true);
+        document.body.style.overflow = "";
         if (containerRef.current) {
           containerRef.current.style.display = "none";
         }
       }
     });
 
-    // Exit Animation: Curtain effect
     tl.to(containerRef.current, {
       yPercent: -100,
       duration: 1.2,
@@ -48,15 +43,14 @@ const Preloader = () => {
         duration: 0.5,
         ease: "power2.in"
       },
-      "<" // Start with container move
+      "<"
     );
   };
 
-  // Simulate loading time or wait for assets
   useEffect(() => {
     const timer = setTimeout(() => {
       handleAnimationComplete();
-    }, 2500); // Min load time
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);

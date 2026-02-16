@@ -58,10 +58,8 @@ const RecentProjects = () => {
             key={project.id}
             className={`project-card flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} gap-10 items-center justify-center`}
           >
-            {/* Image Section */}
             <div className="w-full lg:w-3/5 h-[40vh] md:h-[60vh] relative overflow-hidden rounded-md border border-white/10 group">
                 <div className="project-image absolute inset-0 w-full h-[120%] -top-[10%]">
-                    {/* Background */}
                      <div className="absolute inset-0 bg-[#13162d] opacity-50 z-0"/>
                      <Image 
                         src={project.img} 
@@ -72,7 +70,6 @@ const RecentProjects = () => {
                 </div>
             </div>
 
-            {/* Content Section */}
             <div className="w-full lg:w-2/5 flex flex-col gap-6">
                 <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter text-white">
                     {project.title}

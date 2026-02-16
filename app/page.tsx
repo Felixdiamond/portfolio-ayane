@@ -1,26 +1,30 @@
 "use client";
 
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { TransitionProvider } from "@/context/TransitionContext";
-
-// Lazy imports
-const RecentProjects = lazy(() => import('@/components/Projects'));
-const ClientFeedback = lazy(() => import('@/components/ClientFeedback'));
-const Experience = lazy(() => import('@/components/Experience'));
-const Construct = lazy(() => import('@/components/Construct'));
-const Contact = lazy(() => import('@/components/Contact'));
-const Socials = lazy(() => import('@/components/Socials'));
-
-// Static/Dynamic imports
-import dynamic from 'next/dynamic';
 import Philosophy from "@/components/Philosophy";
+import PhilosophyMobile from "@/components/mobile/PhilosophyMobile";
 import ParallaxSection from "@/components/ui/ParallaxSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
-import { HeroSection } from '@/components/hero';
+import FeaturedProjectsMobile from "@/components/mobile/FeaturedProjectsMobileNative";
+import { HeroSection } from "@/components/hero";
+import ScrollShiftBackground from "@/components/ui/ScrollShiftBackground";
 
-const Preloader = dynamic(() => import('@/components/Preloader'), { ssr: false });
+const RecentProjects = lazy(() => import("@/components/Projects"));
+const ClientFeedback = lazy(() => import("@/components/ClientFeedback"));
+const ClientFeedbackMobile = lazy(() => import("@/components/mobile/ClientFeedbackMobileNative"));
+const Experience = lazy(() => import("@/components/Experience"));
+const ExperienceMobile = lazy(() => import("@/components/mobile/ExperienceMobile"));
+const Construct = lazy(() => import("@/components/Construct"));
+const ConstructMobile = lazy(() => import("@/components/mobile/ConstructMobile"));
+const Contact = lazy(() => import("@/components/Contact"));
+const ContactMobile = lazy(() => import("@/components/mobile/ContactMobile"));
+const Socials = lazy(() => import("@/components/Socials"));
+
+const Preloader = dynamic(() => import("@/components/Preloader"), { ssr: false });
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -41,34 +45,50 @@ export default function Home() {
           
           <Preloader />
 
-          {/* Dynamic WebGL Background Noise */}
-          <div className="noise mix-blend-overlay opacity-20 pointer-events-none fixed inset-0 z-40" />
+          <ScrollShiftBackground />
           
-          <main className="relative flex justify-center items-center flex-col mx-auto overflow-clip">
+          <main className="relative flex justify-center items-center flex-col mx-auto overflow-visible z-10 w-full">
             
             <Suspense fallback={null}>
-              {/* Awwwards Level Interactive 3D Hero */}
               <HeroSection />
 
-              {/* Awwwards Level About Section - Pinned Reveal */}
-              <ParallaxSection zIndex={10}>
+              {isMobile ? (
+                <PhilosophyMobile />
+              ) : (
+                <ParallaxSection zIndex={10}>
                   <Philosophy />
-              </ParallaxSection>
+                </ParallaxSection>
+              )}
 
-              {/* Horizontal Scroll Projects Section */}
-              <FeaturedProjects />
+              {isMobile ? (
+                  <FeaturedProjectsMobile />
+                ) : (
+                  <FeaturedProjects />
+              )}
 
-              {/* Awwwards Level Client Feedback Section */}
-              <ClientFeedback />
+              {isMobile ? (
+                <ClientFeedbackMobile />
+              ) : (
+                <ClientFeedback />
+              )}
 
-              {/* Work Experience Section */}
-              <Experience />
+              {isMobile ? (
+                <ExperienceMobile />
+              ) : (
+                <Experience />
+              )}
 
-              {/* The Construct - Creative Labs Section */}
-              <Construct />
+              {isMobile ? (
+                <ConstructMobile />
+              ) : (
+                <Construct />
+              )}
 
-              {/* Contact / Footer */}
-              <Contact />
+              {isMobile ? (
+                <ContactMobile />
+              ) : (
+                <Contact />
+              )}
               
             </Suspense>
           </main>

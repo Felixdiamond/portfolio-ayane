@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 
 interface MagneticProps {
   children: ReactElement;
-  amount?: number; // Strength of the magnetic effect
+  amount?: number;
 }
 
 export default function Magnetic({ children, amount = 0.3 }: MagneticProps) {
@@ -41,8 +41,6 @@ export default function Magnetic({ children, amount = 0.3 }: MagneticProps) {
     };
   }, { scope: ref });
 
-  // Clone the child to attach the ref directly to it if possible, 
-  // or wrap it in a div if not. For now, wrapping in a div is safer.
   return (
     <div ref={ref} className="inline-block">
       {children}

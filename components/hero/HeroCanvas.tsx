@@ -10,7 +10,7 @@ export default function HeroCanvas() {
   return (
     <div className="absolute inset-0 w-full h-full">
       <Canvas
-        dpr={[1, 2]} // Optimize pixel ratio
+        dpr={[1, 2]}
         gl={{ 
           antialias: true,
           alpha: true,

@@ -10,16 +10,13 @@ const noise3D = createNoise3D();
 export default function ParticleField() {
   const pointsRef = useRef<THREE.Points>(null);
   
-  // Particle count
   const count = 1000;
   
-  // Generate initial positions
   const [positions, originalPositions] = useMemo(() => {
     const positions = new Float32Array(count * 3);
     const originalPositions = new Float32Array(count * 3);
     
     for (let i = 0; i < count; i++) {
-        // Spread particles in a sphere/cloud around center
       const r = 10 + Math.random() * 10;
       const theta = 2 * Math.PI * Math.random();
       const phi = Math.acos(2 * Math.random() - 1);
@@ -52,7 +49,6 @@ export default function ParticleField() {
             const py = originalPositions[i * 3 + 1];
             const pz = originalPositions[i * 3 + 2];
             
-            // Add noise-based movement
             const noiseX = noise3D(px * 0.05, time * 0.1, 0) * 0.5;
             const noiseY = noise3D(py * 0.05, time * 0.1 + 100, 0) * 0.5;
             const noiseZ = noise3D(pz * 0.05, time * 0.1 + 200, 0) * 0.5;
@@ -67,7 +63,6 @@ export default function ParticleField() {
         
         positionsAttribute.needsUpdate = true;
         
-        // Slowly rotate the entire field
         pointsRef.current.rotation.y = time * 0.05;
     }
   });

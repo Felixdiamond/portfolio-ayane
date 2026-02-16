@@ -82,7 +82,6 @@ export const BentoGridItem = ({
     <div
       className={cn(
         "row-span-1 relative overflow-hidden rounded-md border border-white/10 group/bento transition duration-500 justify-between flex flex-col space-y-4 bg-neutral-950",
-        // Hover effect for border
         "hover:border-white/30",
         className
       )}
@@ -99,7 +98,6 @@ export const BentoGridItem = ({
                 />
               </div>
             )}
-             {/* Fallback for img tag if Image component fails or for simple use cases */}
              {!img && img && (
                  <img
                    src={img}

@@ -26,24 +26,22 @@ export default function ExpandableSection({
         scrollTrigger: {
             trigger: containerRef.current,
             start: "center center", 
-            end: "+=150%", // Increased scroll distance for pinning
-            scrub: 1, // Smooth scrubbing
+            end: "+=150%",
+            scrub: 1,
             pin: true,
             anticipatePin: 1,
         }
     });
 
-    // Animate the inner container width/height to viewport
     tl.to(innerRef.current, {
-        width: "100%", // 100% of pinned container (which is 100vw)
+      width: "100%",
         height: "100vh",
         borderRadius: 0,
-        backgroundColor: "#000000", // Ensure solid black background prevents transparency
+      backgroundColor: "#000000",
         duration: 1,
         ease: "power2.inOut"
     });
 
-    // Content fade out/in logic could go here
     if (contentRef.current) {
         tl.to(contentRef.current, {
             opacity: 1,
@@ -59,7 +57,6 @@ export default function ExpandableSection({
     <div 
         ref={containerRef} 
         className={`w-full h-screen flex items-center justify-center overflow-hidden relative z-50 ${className}`} 
-        // z-50 ensures it covers Hero (usually z-10 or z-0)
     >
       <div 
         ref={innerRef}
@@ -70,7 +67,7 @@ export default function ExpandableSection({
             backgroundPosition: 'center',
         }}
       >
-        <div className="absolute inset-0 bg-black/60 z-0" /> {/* Overlay */}
+        <div className="absolute inset-0 bg-black/60 z-0" />
         
         <div ref={contentRef} className="relative z-10 w-full h-full flex items-center justify-center opacity-0 scale-90">
              {children}

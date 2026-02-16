@@ -46,13 +46,9 @@ const experiments = [
 
 export default function Construct() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
   useGSAP(() => {
     const cards = gsap.utils.toArray<HTMLElement>(".construct-card");
-    
-    // Scramble / Decode Text Effect for Header could go here
-    
-    // Staggered Entry
+
     gsap.fromTo(cards, 
         { y: 50, opacity: 0, rotateX: 10 },
         {
@@ -73,17 +69,13 @@ export default function Construct() {
 
   return (
     <section ref={containerRef} className="relative w-full py-32 bg-abyss z-20 overflow-hidden">
-      
-      {/* Digital Horizon Transition Mask */}
       <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-abyss to-transparent z-30 pointer-events-none" />
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent z-40 opacity-50" />
       
-      {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-20" />
       
       <div className="max-w-7xl mx-auto px-5 md:px-10 relative z-10">
           
-          {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-border pb-10">
               <div>
                   <h2 className="text-sm font-bold uppercase tracking-[0.5em] text-accent mb-2">
@@ -98,17 +90,14 @@ export default function Construct() {
               </p>
           </div>
 
-          {/* Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {experiments.map((item) => (
                   <div 
                     key={item.id} 
                     className="construct-card group relative bg-surface/30 border border-border p-8 h-80 flex flex-col justify-between overflow-hidden hover:bg-surface/50 transition-colors duration-500"
                   >
-                      {/* Glitch Overlay on Hover (CSS based usually, simplified here) */}
                       <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       
-                      {/* Top Bar */}
                       <div className="flex justify-between items-start relative z-10">
                           <span className="text-4xl text-text-faint group-hover:text-accent transition-colors duration-300">
                              {item.icon}
@@ -118,7 +107,6 @@ export default function Construct() {
                           </span>
                       </div>
 
-                      {/* Content */}
                       <div className="relative z-10">
                           <span className="text-[10px] font-mono text-accent block mb-2 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                               ERR_SUCCESS: {item.id}
@@ -131,7 +119,6 @@ export default function Construct() {
                           </p>
                       </div>
 
-                      {/* Corner Accents */}
                       <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-border group-hover:w-full group-hover:h-full group-hover:border-accent/30 transition-all duration-500 active:bg-accent/10" />
                       <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-border group-hover:w-full group-hover:h-full group-hover:border-accent/30 transition-all duration-500" />
                   </div>

@@ -5,10 +5,10 @@ import dynamic from "next/dynamic";
 import HeroContent from "./HeroContent";
 import HeroScrollIndicator from "./HeroScrollIndicator";
 import HeroMobileFallback from "./HeroMobileFallback";
+import HeroMobileNative from "@/components/mobile/HeroMobileNative";
 import { useReducedMotion } from "./hooks/useReducedMotion";
 import { HeroInteractionProvider } from "./HeroInteractionContext";
 
-// Dynamically import HeroCanvas with no SSR to avoid window/document errors
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { 
   ssr: false,
   loading: () => <HeroMobileFallback />
@@ -28,24 +28,21 @@ export default function HeroSection() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  if (isMobile || prefersReducedMotion) {
+    return <HeroMobileNative />;
+  }
+
   return (
     <HeroInteractionProvider>
       <section className="relative w-full h-screen overflow-hidden bg-background">
-        {/* 3D Background or Mobile Fallback */}
-        {!isMobile && !prefersReducedMotion ? (
-          <Suspense fallback={<HeroMobileFallback />}>
-            <HeroCanvas />
-          </Suspense>
-        ) : (
-          <HeroMobileFallback />
-        )}
+        <Suspense fallback={<HeroMobileFallback />}>
+          <HeroCanvas />
+        </Suspense>
 
-        {/* Content Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none">
           <HeroContent />
         </div>
 
-        {/* Scroll Indicator */}
         <HeroScrollIndicator />
       </section>
     </HeroInteractionProvider>

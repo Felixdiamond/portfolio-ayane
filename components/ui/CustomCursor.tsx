@@ -2,12 +2,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { isTouchDevice } from "@/hooks/useIsMobile";
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    setIsTouch(isTouchDevice());
+  }, []);
 
   useGSAP(() => {
+    if (isTouch) return;
     const cursor = cursorRef.current;
     if (!cursor) return;
 
@@ -19,7 +26,6 @@ export default function CustomCursor() {
       yTo(e.clientY);
     };
     
-    // Add event listeners for hover effects on clickable elements
     const handleMouseOver = (e: MouseEvent) => {
        const target = e.target as HTMLElement;
        if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
@@ -43,10 +49,10 @@ export default function CustomCursor() {
       document.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseout", handleMouseOut);
     };
-  }, []);
+    }, [isTouch]);
   
-  // Hover animation
   useGSAP(() => {
+      if (isTouch) return;
       if(!cursorRef.current) return;
       
       if(isHovering) {
@@ -54,7 +60,9 @@ export default function CustomCursor() {
       } else {
           gsap.to(cursorRef.current, {scale: 1, opacity: 1, duration: 0.3})
       }
-  }, [isHovering]);
+    }, [isHovering, isTouch]);
+
+    if (isTouch) return null;
 
   return (
     <div

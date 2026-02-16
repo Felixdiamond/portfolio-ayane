@@ -10,7 +10,6 @@ export function useCursorPosition(lerpFactor = 0.1) {
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      // Normalize to -1 to 1
       mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
     };
