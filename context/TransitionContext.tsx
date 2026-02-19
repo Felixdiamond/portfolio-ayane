@@ -16,14 +16,10 @@ export const TransitionProvider = ({ children }: { children: ReactNode }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [timeline, setTimeline] = useState<gsap.core.Timeline | null>(null);
 
-  // Initialize a global GSAP master timeline if needed
   useEffect(() => {
-    // Determine if user has reduced motion preference
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    
-    // Global GSAP defaults
     if (prefersReducedMotion) {
-      gsap.globalTimeline.timeScale(0); // instant jumps for accessibility
+      gsap.globalTimeline.timeScale(0);
     }
   }, []);
 

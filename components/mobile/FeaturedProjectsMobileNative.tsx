@@ -27,7 +27,6 @@ export default function FeaturedProjectsMobileNative() {
   };
 
   const outOfFrame = (name: string) => {
-    // console.log(name + ' left the screen!')
   };
 
   return (
@@ -109,7 +108,6 @@ export default function FeaturedProjectsMobileNative() {
   );
 }
 
-// Helper types/functions if needed but mostly replaced
 type CardProps = any;
 function Card(props: any) { return null; }
 

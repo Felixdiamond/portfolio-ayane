@@ -7,8 +7,6 @@ import { useTransition } from "@/context/TransitionContext";
 import type { MotionValue } from "framer-motion";
 import { Spotlight } from "@/components/ui/Spotlight";
 
-// Per-character staggered reveal — each char clipped inside its own overflow-hidden container
-// so nothing clips the *sibling* characters
 function KineticSplitText({
   text,
   className = "",
@@ -47,7 +45,6 @@ function KineticSplitText({
   );
 }
 
-// Infinitely scrolling ticker — editorial bottom accent
 function Ticker({ items }: { items: string[] }) {
   const full = items.join("  ·  ") + "  ·  ";
   return (
@@ -102,36 +99,27 @@ export default function HeroMobileNative() {
       style={{ opacity: containerOpacity }}
       className="relative w-full h-dvh flex flex-col bg-transparent"
     >
-      {/* Ambient spotlight */}
       <div className="absolute inset-0 z-1 opacity-40 mix-blend-soft-light pointer-events-none overflow-hidden">
         <Spotlight className="-top-40 left-0 h-[180vh]" fill="white" />
       </div>
 
-      {/* Film grain */}
       <GrainOverlay />
 
-      {/* ── TOP BAR ─────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
         transition={{ delay: 0.5, duration: 1 }}
         className="relative z-20 flex items-center justify-between px-6 pt-12 pb-0"
       >
-        {/* Location */}
         <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-text-muted/60">
           Lagos, NG
         </span>
 
-        {/* Editorial index — top right, like magazine pagination */}
         <span className="text-[9px] font-mono tracking-[0.25em] text-text-muted/40">[ 01 ]</span>
       </motion.div>
 
-      {/* ── NAME — fills the screen width intentionally ─── */}
-      {/* FELIX at large scale, DAWODU slightly smaller so 6 chars don't overflow */}
       <div className="relative z-10 flex flex-col justify-center flex-1 px-5 select-none">
         <h1 className="uppercase leading-[0.84] font-black tracking-[-0.04em]">
-          {/* FELIX — ~26vw × 5 chars ≈ 130vw → but tracking-[-0.04em] pulls it to ~120vw, still overflows */}
-          {/* Use w-full + text clamp so it's always full-bleed without overflow */}
           <div className="overflow-hidden w-full">
             <KineticSplitText
               text="FELIX"
@@ -141,7 +129,6 @@ export default function HeroMobileNative() {
               className="text-[26vw] text-text-primary leading-none"
             />
           </div>
-          {/* DAWODU — 6 chars, smaller so it fits: 6 × ~15.5vw ≈ 93vw with tracking */}
           <div className="overflow-hidden w-full">
             <KineticSplitText
               text="DAWODU"
@@ -153,7 +140,6 @@ export default function HeroMobileNative() {
           </div>
         </h1>
 
-        {/* Role strip */}
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : -16 }}
@@ -166,7 +152,6 @@ export default function HeroMobileNative() {
           </span>
         </motion.div>
 
-        {/* Status tag — open to work, contextual */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
@@ -179,7 +164,6 @@ export default function HeroMobileNative() {
           </span>
         </motion.div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 14 }}
@@ -203,7 +187,6 @@ export default function HeroMobileNative() {
           </a>
         </motion.div>
 
-        {/* Scroll indicator — left aligned under CTA */}
         <motion.div
           className="mt-6"
           style={{ opacity: useTransform(scrollYProgress, [0, 0.12], [1, 0]) }}
@@ -212,7 +195,6 @@ export default function HeroMobileNative() {
         </motion.div>
       </div>
 
-      {/* ── TICKER — bottom edge ─────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
