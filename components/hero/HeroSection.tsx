@@ -15,7 +15,7 @@ const HeroCanvas = dynamic(() => import("./HeroCanvas"), {
 });
 
 export default function HeroSection() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -27,6 +27,8 @@ export default function HeroSection() {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  if (isMobile === null) return null;
 
   if (isMobile || prefersReducedMotion) {
     return <HeroMobileNative />;
