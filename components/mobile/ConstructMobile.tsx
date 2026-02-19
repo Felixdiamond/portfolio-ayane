@@ -95,7 +95,7 @@ export default function ConstructMobile({}: {}) {
     }, { scope: containerRef });
 
     return (
-        <section ref={containerRef} className="relative w-full py-20 bg-transparent overflow-hidden min-h-[80vh] flex flex-col">
+        <section id="philosophy" ref={containerRef} className="relative w-full py-20 bg-transparent overflow-hidden min-h-[80vh] flex flex-col">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
             <div className="scan-line absolute left-0 right-0 h-[2px] bg-accent shadow-[0_0_20px_rgba(var(--accent-rgb),0.8)] z-50 pointer-events-none top-0" />
 

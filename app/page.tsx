@@ -10,6 +10,7 @@ import PhilosophyMobile from "@/components/mobile/PhilosophyMobile";
 import ParallaxSection from "@/components/ui/ParallaxSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import FeaturedProjectsMobile from "@/components/mobile/FeaturedProjectsMobileNative";
+import ExperienceMobile from "@/components/mobile/ExperienceMobile";
 import { HeroSection } from "@/components/hero";
 import ScrollShiftBackground from "@/components/ui/ScrollShiftBackground";
 
@@ -17,7 +18,6 @@ const RecentProjects = lazy(() => import("@/components/Projects"));
 const ClientFeedback = lazy(() => import("@/components/ClientFeedback"));
 const ClientFeedbackMobile = lazy(() => import("@/components/mobile/ClientFeedbackMobileNative"));
 const Experience = lazy(() => import("@/components/Experience"));
-const ExperienceMobile = lazy(() => import("@/components/mobile/ExperienceMobile"));
 const Construct = lazy(() => import("@/components/Construct"));
 const ConstructMobile = lazy(() => import("@/components/mobile/ConstructMobile"));
 const Contact = lazy(() => import("@/components/Contact"));

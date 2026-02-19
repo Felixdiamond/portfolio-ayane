@@ -3,8 +3,7 @@
 import React, { useRef } from "react";
 import { workExperience } from "@/data";
 import { cn } from "@/utils/cn";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
-import { useDeviceOrientation } from "@/hooks/useDeviceOrientation";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
 const ExperienceCard = ({
   item,
@@ -18,40 +17,42 @@ const ExperienceCard = ({
   scrollYProgress: MotionValue<number>;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { gamma, beta } = useDeviceOrientation();
   
-  const start = index / total;
-  const end = (index + 1) / total;
+  // Calculate dynamic scale/opacity based on scroll position
+  // We want the card to stay fully visible until the next one covers it
+  // So we use a range that starts *after* this card has stuck and the next is arriving
+  const rangeStart = index * (1 / total);
+  const rangeEnd = (index + 1) * (1 / total);
   
-  const scale = useTransform(scrollYProgress, [start, end], [1, 0.95]); 
-  const opacity = useTransform(scrollYProgress, [start, end], [1, 0.6]);
-  const blur = useTransform(scrollYProgress, [start, end], [0, 4]);
-
-  const rotateX = useSpring(beta * 5, { stiffness: 100, damping: 30 });
-  const rotateY = useSpring(gamma * 5, { stiffness: 100, damping: 30 });
-
+  const scale = useTransform(scrollYProgress, [rangeStart, rangeEnd], [1, 0.95]); 
+  const opacity = useTransform(scrollYProgress, [rangeStart, rangeEnd], [1, 0.5]);
+  
   return (
     <div
       ref={containerRef}
-      className="h-[80vh] w-full flex items-center justify-center sticky top-[10vh]"
+      className="sticky top-0 h-screen w-full flex items-center justify-center"
+      style={{ 
+        top: `calc(10vh + ${index * 15}px)`, // Reduced offset to keep them tighter
+        zIndex: index + 1
+      }} 
     >
       <motion.div
         style={{
-          scale: index === total - 1 ? 1 : scale,
-          opacity: index === total - 1 ? 1 : opacity,
-          filter: index === total - 1 ? "blur(0px)" : `blur(${blur}px)`,
-          rotateX: rotateX,
-          rotateY: rotateY,
+          scale: index === total - 1 ? 1 : scale, // Don't scale the last card
+          // opacity: index === total - 1 ? 1 : opacity, // Optional: Keep opacity 1 for cleaner look or fade out
+          transform: "translateZ(0)",
         }}
         className={cn(
-          "relative flex flex-col gap-5 p-7 md:p-8 w-full max-w-[90vw] h-[62vh]",
+          "relative flex flex-col gap-5 p-7 md:p-8 w-full max-w-[90vw] h-[60vh]", // Fixed height for card content
           "rounded-[1.75rem] border border-white/[0.06] overflow-hidden",
-          "bg-surface/60 backdrop-blur-2xl", 
-          "shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] origin-top",
-          "hover:border-accent/30 transition-all duration-700"
+          "bg-black/40 backdrop-blur-md", // More transparent for glassmorphism feel
+          "shadow-xl shadow-black/30", 
         )}
       >
-        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-accent/8 rounded-full blur-[100px] pointer-events-none" />
+        {/* Subtle gradient to ensure text readability without blocking DarkVeil */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none -z-10" />
+
+        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
         
         <div className="flex justify-between items-center z-10 w-full">
@@ -68,7 +69,8 @@ const ExperienceCard = ({
                 className="text-[2rem] font-bold text-text-primary leading-[1.1] tracking-tight"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                viewport={{ margin: "-50px" }}
+                transition={{ duration: 0.3 }}
             >
                 {item.role}
             </motion.h3>
@@ -76,8 +78,9 @@ const ExperienceCard = ({
              <motion.div 
                 className="flex items-center gap-2"
                 initial={{ opacity: 0 }}
+                viewport={{ margin: "-50px" }}
                 whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                transition={{ duration: 0.3, delay: 0.05 }}
             >
                 <span className="text-base font-semibold text-accent tracking-wide">
                     @{item.company}
@@ -87,8 +90,9 @@ const ExperienceCard = ({
             <motion.p 
                 className="text-sm text-text-secondary leading-relaxed overflow-y-auto pr-2 custom-scrollbar mt-2 max-h-[140px]"
                 initial={{ opacity: 0 }}
+                viewport={{ margin: "-50px" }}
                 whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
             >
                 {item.description}
             </motion.p>
@@ -119,9 +123,10 @@ export default function ExperienceMobile() {
   });
 
   return (
-    <section ref={containerRef} className="relative w-full bg-transparent pb-20 min-h-[150vh]">
+    <section ref={containerRef} className="relative w-full bg-transparent min-h-[100vh]">
       
-      <div className="sticky top-0 z-50 w-full px-6 py-8 flex items-center justify-between bg-gradient-to-b from-abyss/90 via-abyss/50 to-transparent backdrop-blur-sm pointer-events-none h-[15vh]">
+      <div className="sticky top-0 z-50 w-full px-6 py-6 flex items-center justify-between pointer-events-none h-[15vh]">
+         {/* Slightly reduced header height and padding */}
          <div className="pointer-events-auto">
              <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent/60 mb-2">
                 My Path
@@ -133,7 +138,8 @@ export default function ExperienceMobile() {
          <div className="h-px flex-grow ml-8 bg-gradient-to-r from-accent/20 to-transparent" />
       </div>
 
-      <div className="relative z-10 flex flex-col gap-[20vh] pb-[20vh] px-5 -mt-[5vh]"> 
+      <div className="relative z-10 flex flex-col pb-20 px-5 -mt-[10vh]"> 
+        {/* Removed negative margin stacking logic, relying on sticky position */}
         {workExperience.map((item, i) => (
             <ExperienceCard
               key={i}

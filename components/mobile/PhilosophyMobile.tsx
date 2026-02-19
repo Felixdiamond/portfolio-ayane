@@ -166,8 +166,9 @@ export default function PhilosophyMobile() {
 
   return (
     <section 
+      id="about"
       ref={containerRef} 
-      className="py-20 w-full relative z-30 min-h-screen bg-abyss"
+      className="py-20 w-full relative z-30 min-h-screen bg-transparent"
     >
       <div className="max-w-7xl mx-auto px-5 relative z-10 w-full">
         <motion.div 

@@ -1,235 +1,234 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import HeroScrollIndicator from "@/components/hero/HeroScrollIndicator";
-import DarkVeil from "@/components/ui/DarkVeil";
-import { useDeviceOrientation } from "@/hooks/useDeviceOrientation"; 
 import { useTransition } from "@/context/TransitionContext";
 import type { MotionValue } from "framer-motion";
 import { Spotlight } from "@/components/ui/Spotlight";
 
-interface KineticSplitTextProps {
+// Per-character staggered reveal — each char clipped inside its own overflow-hidden container
+// so nothing clips the *sibling* characters
+function KineticSplitText({
+  text,
+  className = "",
+  delay = 0,
+  shouldAnimate,
+  scrollProgress,
+}: {
   text: string;
   className?: string;
   delay?: number;
   shouldAnimate: boolean;
   scrollProgress: MotionValue<number>;
-  direction?: "up" | "down";
-}
-
-function KineticSplitText({ text, className = "", delay = 0, shouldAnimate, scrollProgress, direction = "up" }: KineticSplitTextProps) {
-  const chars = text.split("");
-  
-  const letterSpacing = useTransform(scrollProgress, [0, 0.4], ["-0.05em", "0.2em"]);
-  const opacity = useTransform(scrollProgress, [0, 0.3], [1, 0]);
-  const yScroll = useTransform(scrollProgress, [0, 0.4], ["0%", direction === "up" ? "-50%" : "50%"]);
-  const blur = useTransform(scrollProgress, [0, 0.25], ["0px", "10px"]);
+}) {
+  const opacity = useTransform(scrollProgress, [0, 0.35], [1, 0]);
 
   return (
-    <motion.div 
-      className={`flex overflow-hidden perspective-1000 ${className}`}
-      style={{ letterSpacing, opacity, y: yScroll, filter: useTransform(blur, b => `blur(${b})`) }}
-    >
+    <motion.div className={`flex ${className}`} style={{ opacity }} aria-label={text}>
       <span className="sr-only">{text}</span>
-      {chars.map((char, i) => (
-        <motion.span
-          key={i}
-          initial={{ y: "110%", opacity: 0, rotateX: 90 }}
-          animate={shouldAnimate ? { y: "0%", opacity: 1, rotateX: 0 } : {}}
-          transition={{
-            duration: 1.2,
-            delay: delay + i * 0.08, 
-            ease: [0.2, 0.65, 0.3, 0.9], 
-          }}
-          className="inline-block origin-bottom will-change-transform"
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
+      {text.split("").map((char, i) => (
+        <span key={i} className="overflow-hidden inline-block">
+          <motion.span
+            initial={{ y: "110%", rotateX: 80 }}
+            animate={shouldAnimate ? { y: "0%", rotateX: 0 } : {}}
+            transition={{
+              duration: 1.0,
+              delay: delay + i * 0.055,
+              ease: [0.2, 0.65, 0.3, 0.9],
+            }}
+            className="inline-block origin-bottom will-change-transform"
+          >
+            {char === " " ? "\u00A0" : char}
+          </motion.span>
+        </span>
       ))}
     </motion.div>
   );
 }
 
-function AmbientBackground({ 
-    touchX, 
-    touchY,
-    gamma, 
-    beta, 
-    isAvailable 
-}: { 
-    touchX: MotionValue<number>, 
-    touchY: MotionValue<number>,
-    gamma: number,
-    beta: number,
-    isAvailable: boolean
-}) {
-  
-  const smoothX = useSpring(0, { stiffness: 40, damping: 20 });
-  const smoothY = useSpring(0, { stiffness: 40, damping: 20 });
-
-  useEffect(() => {
-    if (isAvailable) {
-      smoothX.set(gamma * 30);
-      smoothY.set(beta * 30);
-    }
-  }, [gamma, beta, isAvailable, smoothX, smoothY]);
-
-  const touchOpacity = useTransform(touchX, (x) => x > 0 ? 0.4 : 0);
-
+// Infinitely scrolling ticker — editorial bottom accent
+function Ticker({ items }: { items: string[] }) {
+  const full = items.join("  ·  ") + "  ·  ";
   return (
-    <>
-      <div className="absolute inset-0 bg-slate-950 z-0" />
-      
-      <motion.div 
-        className="absolute inset-0 z-[1] opacity-60 mix-blend-soft-light pointer-events-none overflow-hidden"
-        style={{ x: smoothX, y: smoothY }}
+    <div className="overflow-hidden w-full border-t border-white/[0.07]">
+      <motion.div
+        className="flex whitespace-nowrap py-2.5"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: 22, ease: "linear", repeat: Infinity }}
       >
-        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20 h-[180vh]" fill="white" />
+        {[...Array(4)].map((_, i) => (
+          <span
+            key={i}
+            className="text-[9px] font-mono uppercase tracking-[0.28em] text-text-muted/50 pr-10 shrink-0"
+          >
+            {full}
+          </span>
+        ))}
       </motion.div>
-
-       <motion.div
-            className="absolute z-[2] w-[300px] h-[300px] rounded-full blur-[80px] bg-indigo-500/30 mix-blend-screen pointer-events-none"
-            style={{ 
-                x: touchX, 
-                y: touchY,
-                translateX: "-50%",
-                translateY: "-50%",
-                opacity: touchOpacity
-            }} 
-       />
-
-      <div className="absolute inset-0 z-[2] opacity-40 mix-blend-screen overflow-hidden pointer-events-none">
-      </div>
-
-       <div className="absolute inset-0 z-[3] opacity-[0.10] pointer-events-none mix-blend-overlay"
-            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
-       />
-       
-       <div className="absolute inset-0 z-[4] bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)] pointer-events-none" />
-    </>
+    </div>
   );
 }
 
-function TouchCTA({ isLoaded }: { isLoaded: boolean }) {
-    return (
-        <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.8 }}
-            transition={{ delay: 1.8, duration: 0.8, type: "spring" }}
-            className="relative inline-flex group pointer-events-auto"
-        >
-             <a href="#projects" className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none active:scale-95 transition-transform duration-200">
-                <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)] opacity-70" />
-                <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950/90 px-8 py-1 text-xs font-medium text-white backdrop-blur-3xl transition-colors group-hover:bg-slate-950/70 border border-white/10 uppercase tracking-[0.2em]">
-                    View Work
-                </span>
-            </a>
-        </motion.div>
-    )
+function GrainOverlay() {
+  return (
+    <svg
+      className="absolute inset-0 w-full h-full z-2 opacity-[0.15] pointer-events-none mix-blend-overlay"
+      aria-hidden
+    >
+      <filter id="grain-m">
+        <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="3" stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grain-m)" />
+    </svg>
+  );
 }
 
 export default function HeroMobileNative() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { isLoaded } = useTransition(); 
-  const { gamma, beta, isAvailable, requestPermission, permissionGranted } = useDeviceOrientation();
-
-  const touchX = useMotionValue(-100);
-  const touchY = useMotionValue(-100);
-
-  const handleInteraction = (e: React.TouchEvent | React.MouseEvent) => {
-      if (!permissionGranted) {
-          requestPermission();
-      }
-
-      if ('touches' in e) {
-          const touch = e.touches[0];
-          touchX.set(touch.clientX);
-          touchY.set(touch.clientY);
-      }
-  };
+  const { isLoaded } = useTransition();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
-  
-  const containerOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  const containerOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
 
   return (
-    <motion.section 
-        ref={containerRef} 
-        style={{ opacity: containerOpacity }}
-        className="relative w-full h-[100vh] overflow-hidden flex flex-col items-center justify-center bg-black"
-        onTouchStart={handleInteraction}
-        onTouchMove={handleInteraction}
-        onClick={handleInteraction}
+    <motion.section
+      ref={containerRef}
+      style={{ opacity: containerOpacity }}
+      className="relative w-full h-dvh flex flex-col bg-transparent"
     >
-        <AmbientBackground 
-            touchX={touchX} 
-            touchY={touchY} 
-            gamma={gamma}
-            beta={beta}
-            isAvailable={isAvailable}
-        />
+      {/* Ambient spotlight */}
+      <div className="absolute inset-0 z-1 opacity-40 mix-blend-soft-light pointer-events-none overflow-hidden">
+        <Spotlight className="-top-40 left-0 h-[180vh]" fill="white" />
+      </div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center h-full w-full px-6 select-none pb-20">
-            <div className="flex flex-col items-center leading-none mix-blend-difference w-full perspective-text gap-4">
-                <h1 className="text-[17vw] font-bold tracking-tighter text-transparent text-stroke-white uppercase flex flex-col items-center leading-[0.8]">
-                    <KineticSplitText 
-                        text="FELIX" 
-                        delay={0.2} 
-                        shouldAnimate={isLoaded}
-                        scrollProgress={scrollYProgress} 
-                        className="text-white drop-shadow-2xl"
-                    />
-                </h1>
-                
-                <h1 className="text-[17vw] font-bold tracking-tighter text-white uppercase leading-[0.8]">
-                     <KineticSplitText 
-                        text="DAWODU" 
-                        delay={0.5} 
-                        shouldAnimate={isLoaded}
-                        scrollProgress={scrollYProgress} 
-                        direction="down"
-                        className="text-white/90 drop-shadow-2xl"
-                    />
-                </h1>
-            </div>
+      {/* Film grain */}
+      <GrainOverlay />
 
-             <motion.div 
-               initial={{ scaleX: 0 }}
-               animate={{ scaleX: isLoaded ? 1 : 0 }}
-               transition={{ delay: 1.2, duration: 1.5, ease: "circOut" }}
-               style={{ scaleX: useTransform(scrollYProgress, [0, 0.2], [1, 0]) }}
-               className="w-16 h-px bg-white/30 my-8"
+      {/* ── TOP BAR ─────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoaded ? 1 : 0 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="relative z-20 flex items-center justify-between px-6 pt-12 pb-0"
+      >
+        {/* Location */}
+        <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-text-muted/60">
+          Lagos, NG
+        </span>
+
+        {/* Editorial index — top right, like magazine pagination */}
+        <span className="text-[9px] font-mono tracking-[0.25em] text-text-muted/40">[ 01 ]</span>
+      </motion.div>
+
+      {/* ── NAME — fills the screen width intentionally ─── */}
+      {/* FELIX at large scale, DAWODU slightly smaller so 6 chars don't overflow */}
+      <div className="relative z-10 flex flex-col justify-center flex-1 px-5 select-none">
+        <h1 className="uppercase leading-[0.84] font-black tracking-[-0.04em]">
+          {/* FELIX — ~26vw × 5 chars ≈ 130vw → but tracking-[-0.04em] pulls it to ~120vw, still overflows */}
+          {/* Use w-full + text clamp so it's always full-bleed without overflow */}
+          <div className="overflow-hidden w-full">
+            <KineticSplitText
+              text="FELIX"
+              delay={0.15}
+              shouldAnimate={isLoaded}
+              scrollProgress={scrollYProgress}
+              className="text-[26vw] text-text-primary leading-none"
             />
+          </div>
+          {/* DAWODU — 6 chars, smaller so it fits: 6 × ~15.5vw ≈ 93vw with tracking */}
+          <div className="overflow-hidden w-full">
+            <KineticSplitText
+              text="DAWODU"
+              delay={0.36}
+              shouldAnimate={isLoaded}
+              scrollProgress={scrollYProgress}
+              className="text-[17.5vw] text-text-secondary leading-none"
+            />
+          </div>
+        </h1>
 
-            <div className="h-12 flex items-center justify-center overflow-hidden">
-                 <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 10 }}
-                    transition={{ delay: 1.4, duration: 1 }}
-                    className="flex flex-col items-center gap-2 text-[10px] md:text-xs font-mono text-blue-100/70 tracking-[0.25em] uppercase text-center"
-                 > 
-                    <span>Full Stack Engineer</span>
-                    <span className="w-1 h-1 bg-white/40 rounded-full" />
-                    <span>Systems Architect</span>
-                 </motion.div>
-            </div>
-
-            <div className="mt-8">
-                <TouchCTA isLoaded={isLoaded} />
-            </div>
-
-        </div>
-
-        <motion.div 
-            className="absolute bottom-10 left-0 right-0 z-20"
-            style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }}
+        {/* Role strip */}
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : -16 }}
+          transition={{ delay: 1.2, duration: 0.9, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="mt-7 flex items-center gap-3"
         >
-             <HeroScrollIndicator />
+          <div className="w-6 h-px bg-accent/50 shrink-0" />
+          <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-text-muted">
+            Full Stack Engineer  ·  Systems Architect
+          </span>
         </motion.div>
+
+        {/* Status tag — open to work, contextual */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoaded ? 1 : 0 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="mt-4 flex items-center gap-2"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
+          <span className="text-[9px] font-mono uppercase tracking-[0.28em] text-accent/70">
+            Open to work
+          </span>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 14 }}
+          transition={{ delay: 1.8, duration: 0.7, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="mt-9 pointer-events-auto"
+        >
+          <a
+            href="#projects"
+            className="group inline-flex items-center gap-3 px-7 py-3.5 text-[11px] font-medium tracking-widest text-text-primary/90 uppercase border border-border-subtle rounded-full backdrop-blur-sm transition-all duration-300 active:scale-95 hover:border-border-accent hover:bg-accent/5"
+          >
+            <span>View Work</span>
+            <svg
+              className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.5}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </motion.div>
+
+        {/* Scroll indicator — left aligned under CTA */}
+        <motion.div
+          className="mt-6"
+          style={{ opacity: useTransform(scrollYProgress, [0, 0.12], [1, 0]) }}
+        >
+          <HeroScrollIndicator />
+        </motion.div>
+      </div>
+
+      {/* ── TICKER — bottom edge ─────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoaded ? 1 : 0 }}
+        transition={{ delay: 2.2, duration: 1.2 }}
+        className="relative z-20 pb-safe-bottom"
+      >
+        <Ticker
+          items={[
+            "Full Stack Engineer",
+            "Systems Architect",
+            "React · Next.js · TypeScript",
+            "Open to work",
+            "Lagos, Nigeria",
+          ]}
+        />
+      </motion.div>
     </motion.section>
   );
 }

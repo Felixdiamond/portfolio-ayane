@@ -25,13 +25,15 @@ export default function ClientFeedbackMobileNative() {
             <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.png')] mix-blend-overlay" />
         </div>
 
-        <div className="relative z-10 mb-8 px-6 w-full text-center shrink-0">
-             <div className="inline-flex items-center justify-center gap-2 mb-2">
+        <div className="relative z-10 mb-8 px-6 w-full shrink-0">
+             <div className="inline-flex items-center gap-2 mb-3">
                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-               <span className="text-[10px] font-medium tracking-[0.3em] text-accent/80 uppercase">Testimonials</span>
+               <span className="text-[10px] font-mono uppercase tracking-widest text-text-muted">Testimonials</span>
            </div>
-           <h2 className="text-3xl font-bold tracking-tight text-white">
-            Client <span className="text-purple-200">Stories</span>
+           <h2 className="text-4xl font-black uppercase text-text-primary tracking-tighter leading-none mix-blend-difference">
+            Client
+            <br />
+            <span className="text-text-secondary">Stories</span>
            </h2>
         </div>
 

@@ -24,6 +24,7 @@ export default function ContactMobile() {
 
   return (
     <div 
+      id="contact"
       ref={containerRef} 
       className="relative z-0 w-full min-h-screen bg-transparent text-text-primary overflow-hidden flex flex-col pt-20 pb-10"
     >

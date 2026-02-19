@@ -3,6 +3,7 @@ import { ReactNode, useEffect, useState } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import MobileSmoothScroll from "@/components/mobile/MobileSmoothScroll";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +42,10 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       gsap.ticker.remove((time) => lenis.raf(time * 1000));
     };
   }, [isMobile]);
+
+  if (isMobile) {
+    return <MobileSmoothScroll>{children}</MobileSmoothScroll>;
+  }
 
   return <div className="smooth-scroll-wrapper">{children}</div>;
 }
