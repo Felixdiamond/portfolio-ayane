@@ -12,6 +12,7 @@ import FeaturedProjects from "@/components/FeaturedProjects";
 import FeaturedProjectsMobile from "@/components/mobile/FeaturedProjectsMobileNative";
 import ExperienceMobile from "@/components/mobile/ExperienceMobile";
 import { HeroSection } from "@/components/hero";
+import HeroMobileNative from "@/components/mobile/HeroMobileNative";
 import ScrollShiftBackground from "@/components/ui/ScrollShiftBackground";
 
 const RecentProjects = lazy(() => import("@/components/Projects"));
@@ -28,6 +29,7 @@ const Preloader = dynamic(() => import("@/components/Preloader"), { ssr: false }
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,6 +38,14 @@ export default function Home() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, []);
 
   return (
@@ -50,7 +60,7 @@ export default function Home() {
           <main className="relative flex justify-center items-center flex-col mx-auto overflow-visible z-10 w-full">
             
             <Suspense fallback={null}>
-              <HeroSection />
+              {isMobile || prefersReducedMotion ? <HeroMobileNative /> : <HeroSection />}
 
               {isMobile ? (
                 <PhilosophyMobile />
