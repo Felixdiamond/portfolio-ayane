@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/utils/cn";
 import { Menu, X } from "lucide-react";
 import Magnetic from "./Magnetic";
+import { scrollToTarget } from "@/utils/lenis";
 
 export const Navbar = () => {
   const { scrollY } = useScroll();
@@ -29,9 +30,9 @@ export const Navbar = () => {
   }, [isOpen]);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Work", href: "#work" },
-    { name: "Philosophy", href: "#philosophy" },
+    { name: "Work", href: "#runtime" },
+    { name: "Experience", href: "#terminal" },
+    { name: "Lab", href: "#copper" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -51,11 +52,17 @@ export const Navbar = () => {
           "shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]"
         )}
       >
-        <Link href="/" className="relative z-50">
+        <Link href="/" className="relative z-50" aria-label="Felix Dawodu — home">
            <Magnetic>
-              <div className="flex flex-col leading-none font-bold text-xl tracking-tighter mix-blend-difference text-white">
-                <span>FELIX</span>
-                <span className="text-xs font-light text-white/70">DAWODU</span>
+              <div>
+                {/* Mobile shows a monogram — the hero right below carries the full name */}
+                <div className="md:hidden font-mono font-bold text-lg tracking-tight text-white">
+                  FD<span className="text-accent">.</span>
+                </div>
+                <div className="hidden md:flex flex-col leading-none font-bold text-xl tracking-tighter mix-blend-difference text-white">
+                  <span>FELIX</span>
+                  <span className="text-xs font-light text-white/70">DAWODU</span>
+                </div>
               </div>
            </Magnetic>
         </Link>
@@ -65,6 +72,10 @@ export const Navbar = () => {
             <Magnetic key={idx}>
               <Link
                 href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToTarget(link.href);
+                }}
                 className="relative group text-sm font-medium text-white/80 hover:text-white transition-colors"
               >
                 {link.name}
@@ -102,7 +113,11 @@ export const Navbar = () => {
                 >
                     <Link
                         href={link.href}
-                        onClick={() => setIsOpen(false)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIsOpen(false);
+                          scrollToTarget(link.href);
+                        }}
                         className="text-5xl font-bold text-white/50 hover:text-white transition-all duration-300 tracking-tighter"
                     >
                     {link.name}
@@ -111,9 +126,15 @@ export const Navbar = () => {
               ))}
             </div>
             
-            <div className="absolute inset-0 pointer-events-none opacity-20">
-                <div className="absolute top-[20%] left-[10%] w-64 h-64 bg-purple-500/30 rounded-full blur-[100px]" />
-                <div className="absolute bottom-[20%] right-[10%] w-80 h-80 bg-blue-500/20 rounded-full blur-[100px]" />
+            <div className="absolute inset-0 pointer-events-none opacity-30">
+                <div
+                  className="absolute top-[15%] left-[5%] w-80 h-80 rounded-full"
+                  style={{ background: "radial-gradient(circle, rgba(184,115,51,0.25) 0%, transparent 70%)" }}
+                />
+                <div
+                  className="absolute bottom-[15%] right-[5%] w-96 h-96 rounded-full"
+                  style={{ background: "radial-gradient(circle, rgba(232,228,220,0.12) 0%, transparent 70%)" }}
+                />
             </div>
           </motion.div>
         )}

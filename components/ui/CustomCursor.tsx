@@ -8,8 +8,10 @@ export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
+  const hasMoved = useRef(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- touch detection must run client-side, post-hydration
     setIsTouch(isTouchDevice());
   }, []);
 
@@ -22,6 +24,10 @@ export default function CustomCursor() {
     const yTo = gsap.quickTo(cursor, "y", { duration: 0.1, ease: "power3" });
 
     const moveCursor = (e: MouseEvent) => {
+      if (!hasMoved.current) {
+        hasMoved.current = true;
+        gsap.set(cursor, { x: e.clientX, y: e.clientY, visibility: "visible" });
+      }
       xTo(e.clientX);
       yTo(e.clientY);
     };
@@ -67,7 +73,7 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none mix-blend-difference z-[9999] -translate-x-1/2 -translate-y-1/2"
+      className="cursor-dot fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none mix-blend-difference z-[9999] -translate-x-1/2 -translate-y-1/2 invisible"
     />
   );
 }

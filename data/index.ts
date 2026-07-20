@@ -1,105 +1,57 @@
-export const navItems = [
-  { name: "About", link: "#about" },
-  { name: "Projects", link: "#projects" },
-  { name: "Testimonials", link: "#testimonials" },
-  { name: "Contact", link: "#contact" },
-];
-
-export const gridItems = [
-  {
-    id: 1,
-    title: "I build scalable full stack solutions with a focus on user needs ",
-    description: "",
-    className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
-    imgClassName: "w-full h-full",
-    titleClassName: "justify-end",
-    img: "/b1.svg",
-    spareImg: "",
-  },
-  {
-    id: 2,
-    title: "Experienced in global team collaboration across time zones",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-2",
-    imgClassName: "",
-    titleClassName: "justify-start",
-    img: "",
-    spareImg: "",
-  },
-  {
-    id: 3,
-    title: "My tech stack",
-    description: "I constantly try to improve",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-2",
-    imgClassName: "",
-    titleClassName: "justify-center",
-    img: "",
-    spareImg: "",
-  },
-  {
-    id: 4,
-    title: "Tech enthusiast with a passion for development.",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
-    imgClassName: "",
-    titleClassName: "justify-start",
-    img: "/grid.svg",
-    spareImg: "/b4.svg",
-  },
-
-  {
-    id: 5,
-    title: "Currently building an AI multi-model platform",
-    description: "The Inside Scoop",
-    className: "md:col-span-3 md:row-span-2",
-    imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
-    titleClassName: "justify-center md:justify-start lg:justify-center",
-    img: "/b5.svg",
-    spareImg: "/grid.svg",
-  },
-  {
-    id: 6,
-    title: "Let's collaborate on your next project",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
-    imgClassName: "",
-    titleClassName: "justify-center md:max-w-full max-w-60 text-center",
-    img: "",
-    spareImg: "",
-  },
-];
-
 export const projects = [
   {
-    id: 1,
-    title: "VideoTranslator: Open-Source Voice Dubber",
-    des: "A GPU-accelerated pipeline for automatic video transcription, translation, and dubbing across 8+ languages using MeloTTS and FFmpeg.",
-    img: "/video-translator.svg",
-    iconLists: ["/py.svg", "/openai.svg", "/librosa.svg", "/hf.svg", "/ffmpeg.svg"],
-    link: "github.com/Felixdiamond/videotranslator",
+    id: 6,
+    title: "School Biometrics",
+    subtitle: "Fingerprint + face, end to end",
+    proc: "biometric.sys",
+    stat: "driver → recognition → web",
+    des: "An identity and attendance system for schools, built end to end: the driver interface for the Futronic fingerprint scanner, the fingerprint and face recognition pipelines, and the web dashboard staff actually use. In production; the repo stays private.",
+    img: "",
+    tech: ["Driver Interface", "Fingerprint", "Face Recognition", "Web UI"],
+    link: "",
   },
   {
     id: 2,
-    title: "nineBooks: Comprehensive E-Learning Platform",
-    des: "A versatile e-learning platform offering e-books, video courses, and audiobooks for an immersive educational experience.",
-    img: "/nine-books.svg",
-    iconLists: ["/next.svg", "/tail.svg", "/sb.svg", "/paystack.svg", "/styledc.svg"],
-    link: "nine-books.vercel.app",
+    title: "VideoTranslator",
+    subtitle: "Open-source video dubbing",
+    proc: "dubber.pipeline",
+    stat: "8 languages · one GPU",
+    des: "Re-voices video in 8 languages: WhisperX word-level alignment, NLLB translation, Qwen3-TTS voice cloning — with Demucs splitting the track so the background music survives the dub. Models load in sequence to fit one GPU's VRAM.",
+    img: "/video-translator.webp",
+    tech: ["WhisperX", "NLLB-200", "Qwen3-TTS", "Demucs", "FFmpeg"],
+    link: "github.com/Felixdiamond/videoTranslator",
   },
   {
     id: 3,
-    title: "Free AI Gateway: Access AI models for free",
-    des: "A self-hosted REST API that reverse-engineers web interfaces to provide structured, streaming access to chatGPT, gemini and grok without API keys.",
-    img: "/free_ai_gateway.png",
-    iconLists: ["/py.svg", "/fastapi.svg", "/chromium.svg", "/docker.svg"],
+    title: "Free AI Gateway",
+    subtitle: "API keys are optional",
+    proc: "gateway.rev",
+    stat: "3 providers · 0 API keys",
+    des: "An OpenAI-compatible API that answers with ChatGPT, Gemini, or Grok by driving real browser sessions — no keys, no subscriptions. Tab pooling, per-session locks, and patient timeouts do the ugly work underneath.",
+    img: "/free-ai-gateway.webp",
+    tech: ["FastAPI", "zendriver", "Chromium", "Docker"],
     link: "github.com/Felixdiamond/free-ai-gateway",
   },
   {
     id: 4,
-    title: "Deepseek on Android: Edge AI Infrastructure",
-    des: "A complete toolchain for running 1.5B-7B Large Language Models locally on Android devices via Termux, enabling true offline AI capabilities.",
+    title: "Chromaflow",
+    subtitle: "Wallpaper-to-desktop theming",
+    proc: "chromaflow.gtk",
+    stat: "23 stars · GNOME shell",
+    des: "Pulls a palette from your wallpaper and rebuilds the Marble GNOME theme around it, so the whole desktop follows the art. The most-starred thing I've shipped — Linux ricers are a demanding audience.",
+    img: "",
+    tech: ["Python", "PyQt5", "pywal", "GNOME"],
+    link: "github.com/Felixdiamond/chromaflow",
+  },
+  {
+    id: 5,
+    title: "DeepSeek on Android",
+    subtitle: "Edge inference, no excuses",
+    proc: "llm.edge",
+    stat: "1.5B params · 4GB-RAM phone",
+    des: "A one-line installer that puts a local LLM on a budget phone: Termux, proot Debian, Ollama, Open WebUI. The 1.5B model runs on an Infinix with 4GB of RAM and a Unisoc chip that had other plans.",
     img: "/deep-on-android.webp",
-    iconLists: ["/bash.svg", "/termux.svg", "/ollama.svg", "/linux.svg"],
+    tech: ["Termux", "Ollama", "proot", "Bash"],
     link: "github.com/Felixdiamond/deepseek-on-android",
   }
 ];
@@ -125,37 +77,5 @@ export const testimonials = [
   },
 ];
 
-export const workExperience = [
-  {
-    year: "2022 — 2023",
-    role: "Full Stack Developer",
-    company: "Lomosoft / ChainKoffee",
-    description: "Architected modular microservices and REST APIs, boosting data throughput by 30%. Designed optimized SQL schemas for high-volume traffic.",
-    tags: ["Node.js", "PostgreSQL", "React", "System Design"]
-  },
-  {
-    year: "2023 — Present",
-    role: "Freelance Systems Engineer",
-    company: "Self-Employed",
-    description: "Delivering high-performance backend systems and automation tools. Built GPU-accelerated AI pipelines and CLI utilities that reduced client workflows by 90%.",
-    tags: ["Python", "FastAPI", "CI/CD", "Automation"]
-  },
-];
-
-export const socialMedia = [
-  {
-    id: 1,
-    img: "/git.svg",
-    link: "https://github.com/Felixdiamond",
-  },
-  {
-    id: 2,
-    img: "/twit.svg",
-    link: "https://x.com/FelixDiamond06",
-  },
-  {
-    id: 3,
-    img: "/link.svg",
-    link: "https://www.linkedin.com/in/felix-dawodu-ba2b08211"
-  },
-];
+// Career history lives in components/TerminalLayer.tsx as the shell session.
+// Social links live in components/Workbench.tsx.

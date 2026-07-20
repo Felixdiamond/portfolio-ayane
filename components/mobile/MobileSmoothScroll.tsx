@@ -3,6 +3,7 @@ import { ReactNode, useEffect, useRef } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setLenis } from "@/utils/lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,12 +22,12 @@ export default function MobileSmoothScroll({ children }: { children: ReactNode }
     });
     
     lenisRef.current = lenis;
+    setLenis(lenis);
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    const raf = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(raf);
 
     gsap.ticker.lagSmoothing(0);
     
@@ -54,8 +55,9 @@ export default function MobileSmoothScroll({ children }: { children: ReactNode }
     return () => {
       document.removeEventListener('click', handleAnchorClick);
       document.documentElement.classList.remove('lenis-mobile');
+      gsap.ticker.remove(raf);
       lenis.destroy();
-      gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      setLenis(null);
       lenisRef.current = null;
     };
   }, []);
