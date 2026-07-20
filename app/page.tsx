@@ -1,108 +1,69 @@
 "use client";
 
 import { Suspense, lazy, useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
-import { TransitionProvider } from "@/context/TransitionContext";
-import Philosophy from "@/components/Philosophy";
-import PhilosophyMobile from "@/components/mobile/PhilosophyMobile";
-import ParallaxSection from "@/components/ui/ParallaxSection";
-import FeaturedProjects from "@/components/FeaturedProjects";
-import FeaturedProjectsMobile from "@/components/mobile/FeaturedProjectsMobileNative";
-import ExperienceMobile from "@/components/mobile/ExperienceMobile";
-import { HeroSection } from "@/components/hero";
-import HeroMobileNative from "@/components/mobile/HeroMobileNative";
-import ScrollShiftBackground from "@/components/ui/ScrollShiftBackground";
-
-const RecentProjects = lazy(() => import("@/components/Projects"));
-const ClientFeedback = lazy(() => import("@/components/ClientFeedback"));
-const ClientFeedbackMobile = lazy(() => import("@/components/mobile/ClientFeedbackMobileNative"));
-const Experience = lazy(() => import("@/components/Experience"));
-const Construct = lazy(() => import("@/components/Construct"));
-const ConstructMobile = lazy(() => import("@/components/mobile/ConstructMobile"));
-const Contact = lazy(() => import("@/components/Contact"));
-const ContactMobile = lazy(() => import("@/components/mobile/ContactMobile"));
-const Socials = lazy(() => import("@/components/Socials"));
-
-const Preloader = dynamic(() => import("@/components/Preloader"), { ssr: false });
+import DepthGauge from "@/components/ui/DepthGauge";
+import AmbientDepth from "@/components/ui/AmbientDepth";
+import VelocitySkew from "@/components/ui/VelocitySkew";
+import ConsoleSignature from "@/components/ui/ConsoleSignature";
+import GlassHero from "@/components/hero/GlassHero";
+import PointOfView from "@/components/PointOfView";
+import RunningSystems from "@/components/RunningSystems";
+import RunningSystemsMobile from "@/components/mobile/RunningSystemsMobile";
+import ClientSignals from "@/components/ClientSignals";
+import TerminalLayer from "@/components/TerminalLayer";
+const CopperLab = lazy(() => import("@/components/CopperLab"));
+const Workbench = lazy(() => import("@/components/Workbench"));
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
   return (
-    <TransitionProvider>
-        <SmoothScroll>
-          <CustomCursor />
-          
-          <Preloader />
+    <SmoothScroll>
+      <CustomCursor />
+      <DepthGauge />
+      <AmbientDepth />
+      <VelocitySkew />
+      <ConsoleSignature />
+      {/* Film grain over everything — dark frames read as texture, not void */}
+      <div className="noise" aria-hidden />
 
-          <ScrollShiftBackground />
-          
-          <main className="relative flex justify-center items-center flex-col mx-auto overflow-visible z-10 w-full">
-            
-            <Suspense fallback={null}>
-              {isMobile || prefersReducedMotion ? <HeroMobileNative /> : <HeroSection />}
+      <main className="relative flex justify-center items-center flex-col mx-auto overflow-visible z-10 w-full">
+        {/* L3 — GLASS: the surface. Never suspended — this is the LCP. */}
+        <section id="glass" data-layer="3" className="w-full">
+          <GlassHero />
+        </section>
 
-              {isMobile ? (
-                <PhilosophyMobile />
-              ) : (
-                <ParallaxSection zIndex={10}>
-                  <Philosophy />
-                </ParallaxSection>
-              )}
+        {/* L2 — RUNTIME: the systems at work */}
+        <div id="runtime" data-layer="2" className="w-full">
+          <PointOfView />
+          {isMobile ? <RunningSystemsMobile /> : <RunningSystems />}
+          <ClientSignals />
+        </div>
 
-              {isMobile ? (
-                  <FeaturedProjectsMobile />
-                ) : (
-                  <FeaturedProjects />
-              )}
+        {/* L1 — TERMINAL: the threshold. Career history as a shell session. */}
+        <div id="terminal" data-layer="1" className="w-full">
+          <TerminalLayer />
+        </div>
 
-              {isMobile ? (
-                <ClientFeedbackMobile />
-              ) : (
-                <ClientFeedback />
-              )}
-
-              {isMobile ? (
-                <ExperienceMobile />
-              ) : (
-                <Experience />
-              )}
-
-              {isMobile ? (
-                <ConstructMobile />
-              ) : (
-                <Construct />
-              )}
-
-              {isMobile ? (
-                <ContactMobile />
-              ) : (
-                <Contact />
-              )}
-              
-            </Suspense>
-          </main>
-        </SmoothScroll>
-    </TransitionProvider>
+        {/* L0 — COPPER: bare metal, and the human at the bench */}
+        <div id="copper" data-layer="0" className="w-full">
+          <Suspense fallback={null}>
+            <CopperLab />
+            <div id="contact">
+              <Workbench />
+            </div>
+          </Suspense>
+        </div>
+      </main>
+    </SmoothScroll>
   );
 }

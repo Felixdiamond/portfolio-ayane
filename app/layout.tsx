@@ -1,28 +1,45 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
+import { Navbar } from "@/components/ui/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#0B0C0E",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://portfolio-ayane.vercel.app'),
-  title: "Felix Dawodu - Full Stack Developer Portfolio",
-  description: "Portfolio of Felix Dawodu, an innovative Full Stack Developer with expertise in React, Nodeq.js, and cutting-edge web technologies.",
+  title: "Felix Dawodu — Full-Stack & Systems Engineer",
+  description: "Felix Dawodu builds the whole stack — polished interfaces down to bare metal. Full-stack engineering, AI infrastructure, and hardware from Lagos, Nigeria.",
   authors: [{ name: "Felix Dawodu" }],
   keywords: [
     "Full Stack Developer",
+    "Systems Engineer",
+    "AI Infrastructure",
     "React",
     "Node.js",
     "Web Development",
     "Software Engineering",
-    "JavaScript",
     "TypeScript",
     "Next.js"
   ],
   openGraph: {
-    title: "Felix Dawodu - Full Stack Developer",
-    description: "Explore innovative web solutions and full-stack development projects",
+    title: "Felix Dawodu — Full-Stack & Systems Engineer",
+    description: "The whole stack: glass to copper. Interfaces, AI infrastructure, and hardware.",
     url: "https://portfolio-ayane.vercel.app",
     siteName: "Felix Dawodu Portfolio",
     images: [
@@ -30,7 +47,7 @@ export const metadata: Metadata = {
         url: "/images/portfolio-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Felix Dawodu - Portfolio Landing Page"
+        alt: "Felix Dawodu — Portfolio"
       }
     ],
     locale: "en_US",
@@ -38,8 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Felix Dawodu - Full Stack Developer",
-    description: "Innovative web solutions and full-stack development projects",
+    title: "Felix Dawodu — Full-Stack & Systems Engineer",
+    description: "The whole stack: glass to copper.",
     images: ["/images/portfolio-og-image.jpg"]
   },
   icons: {
@@ -51,27 +68,11 @@ export const metadata: Metadata = {
     ],
     shortcut: ['/favicon.ico'],
     apple: [
-      { url: '/favicon-57x57.png', sizes: '57x57', type: 'image/png' },
-      { url: '/favicon-60x60.png', sizes: '60x60', type: 'image/png' },
-      { url: '/favicon-72x72.png', sizes: '72x72', type: 'image/png' },
-      { url: '/favicon-76x76.png', sizes: '76x76', type: 'image/png' },
-      { url: '/favicon-114x114.png', sizes: '114x114', type: 'image/png' },
-      { url: '/favicon-120x120.png', sizes: '120x120', type: 'image/png' },
-      { url: '/favicon-144x144.png', sizes: '144x144', type: 'image/png' },
-      { url: '/favicon-152x152.png', sizes: '152x152', type: 'image/png' },
       { url: '/favicon-180x180.png', sizes: '180x180', type: 'image/png' },
     ],
-    other: [
-      {
-        rel: 'apple-touch-icon',
-        url: '/favicon-180x180.png',
-      }
-    ]
   },
   manifest: '/site.webmanifest',
 };
-
-import { Navbar } from "@/components/ui/Navbar";
 
 export default function RootLayout({
   children,
@@ -80,12 +81,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="msapplication-TileImage" content="/favicon-144x144.png" />
-        <meta name="msapplication-config" content="/browserconfig.xml" />
-      </head>
-      <body className={inter.className}>
+      <body className={`${archivo.variable} ${jetbrainsMono.variable} ${archivo.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

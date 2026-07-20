@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -23,16 +22,23 @@
   --color-text-muted: oklch(50% 0 0);
   --color-text-faint: oklch(30% 0 0);
 
-  /* Purple Accent System - Primary Brand Color */
-  --color-accent: oklch(70% 0.15 280);
-  --color-accent-hover: oklch(80% 0.18 280);
-  --color-accent-muted: oklch(50% 0.10 280);
-  --color-accent-glow: oklch(60% 0.20 280);
+  /* Copper Accent System - "Glass to Copper" */
+  --color-accent: oklch(62% 0.11 55);
+  --color-accent-hover: oklch(72% 0.13 60);
+  --color-accent-muted: oklch(48% 0.08 55);
+  --color-accent-glow: oklch(58% 0.12 55);
+
+  /* Material Palette - layer identities */
+  --color-carbon: oklch(14% 0.004 260);
+  --color-glass-white: oklch(92% 0.006 90);
+  --color-copper: oklch(62% 0.11 55);
+  --color-solder: oklch(73% 0.1 80);
+  --color-phosphor: oklch(86% 0.24 150);
 
   /* Border Scale */
   --color-border: oklch(20% 0 0);
   --color-border-subtle: oklch(15% 0 0);
-  --color-border-accent: oklch(40% 0.10 280);
+  --color-border-accent: oklch(42% 0.07 55);
 
   /* Semantic Colors */
   --color-success: oklch(70% 0.15 145);
@@ -78,11 +84,6 @@
   /* 128px */
   --text-9xl: 10rem;
   /* 160px */
-
-  /* Font Families */
-  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
   /* Spacing Scale (4px base) */
   --space-0: 0;
@@ -136,6 +137,14 @@
   --radius-full: 9999px;
 }
 
+/* Font vars must be inline: next/font defines --font-archivo/--font-jetbrains on <body>,
+   which a static @theme block cannot resolve — inline emits the var() references as-is. */
+@theme inline {
+  --font-display: var(--font-archivo), system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-archivo), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
@@ -147,6 +156,60 @@
     font-family: var(--font-body);
     cursor: none;
     overflow-x: hidden;
+  }
+
+  /* Touch devices keep the native cursor; CustomCursor never mounts there */
+  @media (pointer: coarse) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-void);
+  }
+
+  /* One inverted frame when the terminal seizes the page */
+  body.power-cut {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  /* The cursor descends with you: dot → crosshair → block → copper pad */
+  .cursor-dot {
+    transition: border-radius 300ms ease, background-color 300ms ease,
+      width 300ms ease, height 300ms ease, border 300ms ease;
+  }
+
+  body[data-depth="runtime"] .cursor-dot {
+    border-radius: 1px;
+    background: transparent;
+    border: 1.5px solid rgba(232, 228, 220, 0.9);
+    width: 14px;
+    height: 14px;
+  }
+
+  body[data-depth="terminal"] .cursor-dot {
+    border-radius: 0;
+    border: none;
+    background: #33ff66;
+    width: 9px;
+    height: 17px;
+    mix-blend-mode: normal;
+  }
+
+  body[data-depth="copper"] .cursor-dot {
+    border-radius: 9999px;
+    background: transparent;
+    border: 2px solid #b87333;
+    width: 18px;
+    height: 18px;
+    mix-blend-mode: normal;
   }
 }
 
@@ -192,5 +255,93 @@
   .font-outline-2 {
     -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5);
     color: transparent;
+  }
+
+  /* Holo-foil nameplate (mobile hero). Custom props --gx/--gy/--foil/--hue
+     are written by a rAF loop from gyro or thumb position. */
+  .holo-foil {
+    background: repeating-linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(184, 115, 51, 0.5) 4%,
+      rgba(232, 228, 220, 0.55) 7%,
+      rgba(212, 162, 78, 0.5) 10%,
+      transparent 14%
+    );
+    background-size: 250% 250%;
+    background-position: calc(var(--gx, 50) * 1%) calc(var(--gy, 45) * 1%);
+    mix-blend-mode: color-dodge;
+    filter: hue-rotate(calc(var(--hue, 0) * 1deg)) saturate(1.15);
+    opacity: var(--foil, 0);
+    transition: opacity 0.2s linear;
+  }
+
+  .holo-glare {
+    background: radial-gradient(
+      55% 45% at calc(var(--gx, 50) * 1%) calc(var(--gy, 45) * 1%),
+      rgba(232, 228, 220, 0.4) 0%,
+      rgba(232, 228, 220, 0.08) 40%,
+      transparent 70%
+    );
+    mix-blend-mode: overlay;
+    opacity: calc(var(--foil, 0) + 0.15);
+  }
+
+  /* Bankai release — one violent breath */
+  body.bankai-shake {
+    animation: bankai-shake 0.45s ease-out;
+  }
+
+  @keyframes bankai-shake {
+    0% { transform: translate(0, 0); }
+    15% { transform: translate(-6px, 3px); }
+    30% { transform: translate(5px, -4px); }
+    45% { transform: translate(-3px, 2px); }
+    60% { transform: translate(2px, -1px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Charge packets on copper traces — hidden for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .trace-current {
+      display: none;
+    }
+  }
+
+  /* CRT refresh sweep (TerminalLayer) */
+  @media (prefers-reduced-motion: no-preference) {
+    .terminal-sweep {
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(51, 255, 102, 0.05) 45%,
+        rgba(51, 255, 102, 0.08) 50%,
+        rgba(51, 255, 102, 0.05) 55%,
+        transparent
+      );
+      animation: terminal-sweep 7s linear infinite;
+    }
+  }
+
+  @keyframes terminal-sweep {
+    from {
+      transform: translateY(-15vh);
+    }
+    to {
+      transform: translateY(115vh);
+    }
+  }
+
+  /* Infinite log-stream marquee (ClientSignals) */
+  @media (prefers-reduced-motion: no-preference) {
+    .marquee-row {
+      animation: marquee 45s linear infinite;
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
