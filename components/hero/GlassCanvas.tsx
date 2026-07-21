@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable react-hooks/immutability -- R3F useFrame mutates three.js objects imperatively by design */
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer, MeshTransmissionMaterial, RoundedBox, Text } from "@react-three/drei";
@@ -20,7 +20,17 @@ const COPPER = new THREE.Color("#b87333");
 function NameAndGlass({ progress }: { progress: MotionValue<number> }) {
   const slab = useRef<THREE.Group>(null);
   const mat = useRef<any>(null);
+  const pulse = useRef(0);
   const { pointer, camera } = useThree();
+
+  // Press anywhere: the glass rings with a refraction pulse
+  useEffect(() => {
+    const onDown = () => {
+      pulse.current = 1;
+    };
+    window.addEventListener("pointerdown", onDown, { passive: true });
+    return () => window.removeEventListener("pointerdown", onDown);
+  }, []);
 
   useFrame((state, delta) => {
     const p = progress.get();
@@ -46,10 +56,14 @@ function NameAndGlass({ progress }: { progress: MotionValue<number> }) {
       );
     }
 
+    // Pulse decays fast; while alive it rings through the refraction
+    pulse.current *= Math.pow(0.01, delta);
+
     if (mat.current) {
       // Slow breathing refraction; thickens as the camera dives through
-      mat.current.ior = 1.24 + Math.sin(state.clock.elapsedTime * 0.5) * 0.05 + p * 0.35;
-      mat.current.chromaticAberration = 0.045 + p * 0.12;
+      mat.current.ior =
+        1.24 + Math.sin(state.clock.elapsedTime * 0.5) * 0.05 + p * 0.35 + pulse.current * 0.22;
+      mat.current.chromaticAberration = 0.045 + p * 0.12 + pulse.current * 0.08;
 
       // The narrative payoff: passing through the glass turns it to copper
       const t = THREE.MathUtils.smoothstep(p, 0.4, 0.95);

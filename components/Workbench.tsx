@@ -7,6 +7,7 @@ import { useState } from "react";
 import Magnetic from "./ui/Magnetic";
 import FlexText from "./ui/FlexText";
 import BankaiEgg from "./ui/BankaiEgg";
+import { buzz } from "@/utils/haptics";
 
 const EMAIL = "diamondfelix006@gmail.com";
 
@@ -28,6 +29,7 @@ export default function Workbench() {
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText(EMAIL);
+      buzz(6);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {

@@ -11,6 +11,14 @@ export default function ConsoleSignature() {
       "color:#e8e4dc;padding:2px 0",
       "color:#666;font-size:10px"
     );
+
+    // The tab keeps working while you're away
+    const original = document.title;
+    const onVisibility = () => {
+      document.title = document.hidden ? "still building… | FD" : original;
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
   return null;

@@ -14,6 +14,23 @@ gsap.registerPlugin(ScrollTrigger);
 function ProcHeader({ index, proc }: { index: number; proc: string }) {
   const [boots, setBoots] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
+  const upRef = useRef<HTMLSpanElement>(null);
+
+  // Live uptime: each process has been up a while and keeps counting
+  useGSAP(() => {
+    const base = 86400 * (index + 3) + 7211 * index;
+    const t0 = performance.now();
+    const id = setInterval(() => {
+      if (!upRef.current) return;
+      const s = base + Math.floor((performance.now() - t0) / 1000);
+      const d = Math.floor(s / 86400);
+      const h = Math.floor((s % 86400) / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      upRef.current.textContent = `up ${d}d ${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+    }, 1000);
+    return () => clearInterval(id);
+  }, [index]);
 
   useGSAP(
     () => {
@@ -34,9 +51,12 @@ function ProcHeader({ index, proc }: { index: number; proc: string }) {
       <span className="text-text-muted">
         pid 0x0{index + 1} · <ScrambleText text={proc} trigger={boots} />
       </span>
-      <span className="flex items-center gap-2 text-accent">
-        <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-        running
+      <span className="flex items-center gap-3">
+        <span ref={upRef} className="hidden lg:inline text-text-muted/70 normal-case tracking-[0.1em]" />
+        <span className="flex items-center gap-2 text-accent">
+          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+          running
+        </span>
       </span>
     </div>
   );

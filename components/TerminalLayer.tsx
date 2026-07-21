@@ -137,6 +137,11 @@ export default function TerminalLayer() {
         aria-hidden
       />
 
+      {/* The tube: rounded screen set into a black bezel */}
+      <div
+        className="crt-screen absolute inset-2 md:inset-5 rounded-[20px] md:rounded-[30px] overflow-hidden ring-1 ring-white/[0.06]"
+        style={{ boxShadow: "inset 0 0 110px rgba(0,0,0,0.85), inset 0 0 14px rgba(51,255,102,0.06)" }}
+      >
       {/* CRT dress: phosphor dot-matrix + scanlines + ambient tube glow + vignette */}
       <div
         ref={ambientRef}
@@ -188,6 +193,7 @@ export default function TerminalLayer() {
 
         {/* Screen-reader users get the session as plain text */}
         <span className="sr-only">{SESSION}</span>
+      </div>
       </div>
     </div>
   );
