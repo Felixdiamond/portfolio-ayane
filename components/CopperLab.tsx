@@ -61,49 +61,93 @@ const EXPERIMENTS = [
 
 /** Copper trace backdrop — static SVG, no filters, no canvas. */
 function TraceField() {
+  const BUSES = [
+    "M0 80 H340 l40 40 H700 l30 -30 H1200",
+    "M0 200 H180 l30 30 H520 l40 -40 H900 l40 40 h260",
+    "M0 420 H260 l50 -50 H640 l30 30 H1040 l40 -40 h120",
+    "M860 0 V90 l-30 30 V330 l40 40 V600",
+    "M120 0 V140 l40 40 V380 l-30 30 V600",
+  ];
+
   return (
     <svg
-      className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.13]"
+      className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.14]"
       viewBox="0 0 1200 600"
       preserveAspectRatio="xMidYMid slice"
       aria-hidden
     >
+      {/* Routing */}
       <g stroke="#b87333" strokeWidth="1.2" fill="none">
-        <path d="M0 80 H340 l40 40 H700 l30 -30 H1200" />
-        <path d="M0 200 H180 l30 30 H520 l40 -40 H900 l40 40 h260" />
-        <path d="M0 420 H260 l50 -50 H640 l30 30 H1040 l40 -40 h120" />
-        <path d="M120 0 V140 l40 40 V380 l-30 30 V600" />
-        <path d="M860 0 V90 l-30 30 V330 l40 40 V600" />
+        {BUSES.map((d) => (
+          <path key={d} d={d} />
+        ))}
         <path d="M1080 0 V200 l30 30 V520" />
+        <path d="M0 140 H90 l24 24 V300" />
+        <path d="M420 600 V520 l30 -30 H560" />
+        <path d="M1200 320 h-180 l-40 40 H840" />
+        <path d="M300 80 v-40 h120" strokeWidth="0.8" />
+        <path d="M700 120 v60 h60" strokeWidth="0.8" />
+      </g>
+
+      {/* Vias: plated through-holes, not solid dots */}
+      <g stroke="#b87333" strokeWidth="1.5" fill="none">
+        <circle cx="340" cy="80" r="4" />
+        <circle cx="180" cy="200" r="4" />
+        <circle cx="900" cy="200" r="4" />
+        <circle cx="640" cy="370" r="4" />
+        <circle cx="120" cy="140" r="4" />
+        <circle cx="860" cy="90" r="4" />
+        <circle cx="1080" cy="230" r="4" />
+        <circle cx="114" cy="300" r="4" />
+        <circle cx="560" cy="490" r="4" />
       </g>
       <g fill="#b87333">
-        <circle cx="340" cy="80" r="5" />
-        <circle cx="180" cy="200" r="5" />
-        <circle cx="900" cy="200" r="5" />
-        <circle cx="640" cy="370" r="5" />
-        <circle cx="120" cy="140" r="5" />
-        <circle cx="860" cy="90" r="5" />
-        <circle cx="1080" cy="230" r="5" />
+        <circle cx="340" cy="80" r="1.4" />
+        <circle cx="180" cy="200" r="1.4" />
+        <circle cx="900" cy="200" r="1.4" />
+        <circle cx="640" cy="370" r="1.4" />
+        <circle cx="860" cy="90" r="1.4" />
       </g>
+
+      {/* SMD pad pairs */}
       <g fill="#d4a24e">
-        <rect x="695" y="45" width="10" height="10" />
-        <rect x="515" y="225" width="10" height="10" />
-        <rect x="1035" y="415" width="10" height="10" />
+        <rect x="694" y="44" width="5" height="12" />
+        <rect x="703" y="44" width="5" height="12" />
+        <rect x="514" y="224" width="5" height="12" />
+        <rect x="523" y="224" width="5" height="12" />
+        <rect x="1034" y="414" width="5" height="12" />
+        <rect x="1043" y="414" width="5" height="12" />
+        <rect x="419" y="594" width="12" height="5" />
       </g>
-      {/* Current on the bus — small charge packets travelling the traces */}
-      <g className="trace-current" fill="#d4a24e">
-        <circle r="3.5" opacity="0.9">
-          <animateMotion dur="9s" repeatCount="indefinite" path="M0 80 H340 l40 40 H700 l30 -30 H1200" />
-        </circle>
-        <circle r="3" opacity="0.75">
-          <animateMotion dur="12s" begin="3s" repeatCount="indefinite" path="M0 200 H180 l30 30 H520 l40 -40 H900 l40 40 h260" />
-        </circle>
-        <circle r="3" opacity="0.7">
-          <animateMotion dur="11s" begin="6s" repeatCount="indefinite" path="M0 420 H260 l50 -50 H640 l30 30 H1040 l40 -40 h120" />
-        </circle>
-        <circle r="2.5" opacity="0.6">
-          <animateMotion dur="10s" begin="1.5s" repeatCount="indefinite" path="M860 0 V90 l-30 30 V330 l40 40 V600" />
-        </circle>
+
+      {/* IC footprint, U0: the board's brain, unpopulated */}
+      <g stroke="#b87333" strokeWidth="1" fill="none">
+        <rect x="940" y="440" width="80" height="80" rx="2" />
+        {[0, 1, 2, 3].map((i) => (
+          <g key={i}>
+            <path d={`M${956 + i * 16} 440 v-10`} />
+            <path d={`M${956 + i * 16} 520 v10`} />
+            <path d={`M940 ${456 + i * 16} h-10`} />
+            <path d={`M1020 ${456 + i * 16} h10`} />
+          </g>
+        ))}
+      </g>
+      <circle cx="952" cy="452" r="2.5" fill="#b87333" />
+
+      {/* Current: comet packets with a soft tail, travelling the buses */}
+      <g className="trace-current">
+        {BUSES.map((d, i) => (
+          <g key={d}>
+            <animateMotion
+              dur={`${8 + i * 1.7}s`}
+              begin={`${i * 2.1}s`}
+              repeatCount="indefinite"
+              path={d}
+            />
+            <circle r="6" fill="#d4a24e" opacity="0.18" />
+            <circle r="3" fill="#d4a24e" opacity="0.85" />
+          </g>
+        ))}
       </g>
     </svg>
   );

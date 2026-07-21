@@ -116,7 +116,7 @@ function DepthRow({
         <motion.h3
           variants={{ hidden: { y: "105%" }, show: { y: "0%" } }}
           transition={{ duration: 0.9, delay: 0.12, ease: EXPO_OUT }}
-          className="text-[7.5vw] md:text-6xl font-bold uppercase tracking-tight text-text-primary transition-transform duration-500 md:group-hover:translate-x-3"
+          className="text-[7.5vw] md:text-[clamp(2.25rem,3.4vw,3.75rem)] font-bold uppercase tracking-tight text-text-primary transition-transform duration-500 md:group-hover:translate-x-3"
         >
           {depth.title}
         </motion.h3>

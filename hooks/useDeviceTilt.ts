@@ -26,7 +26,7 @@ export function useDeviceTilt(onTilt: (tilt: Tilt) => void, enabled = true) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- iOS 13+: wait for a tap
       setNeedsPermission(true);
     } else {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- gyro available without permission
+       
       setGranted(true);
     }
   }, [enabled]);

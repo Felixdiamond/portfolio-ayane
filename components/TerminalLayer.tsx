@@ -105,7 +105,7 @@ export default function TerminalLayer() {
         // Typing, scrubbed: progress maps directly to characters on screen
         .to(state, {
           chars: SESSION.length,
-          duration: 0.81,
+          duration: 0.69,
           ease: "none",
           onUpdate: () => {
             screen.textContent = SESSION.slice(0, Math.round(state.chars));
@@ -116,10 +116,13 @@ export default function TerminalLayer() {
         .to(preRef.current, {
           color: "#b87333",
           textShadow: "0 0 8px rgba(184,115,51,0.35)",
-          duration: 0.08,
+          duration: 0.06,
           ease: "none",
         })
-        .to(ambientRef.current, { opacity: 0.25, duration: 0.08, ease: "none" }, "<");
+        .to(ambientRef.current, { opacity: 0.25, duration: 0.06, ease: "none" }, "<")
+        // Hold: the finished screen stays readable for the last stretch of the
+        // pin, so fast scrollers never lose the tail to the next section
+        .to({}, { duration: 0.14 });
     },
     { scope: containerRef }
   );

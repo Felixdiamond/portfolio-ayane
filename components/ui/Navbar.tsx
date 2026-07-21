@@ -54,15 +54,9 @@ export const Navbar = () => {
       >
         <Link href="/" className="relative z-50" aria-label="Felix Dawodu, home">
            <Magnetic>
-              <div>
-                {/* Mobile shows a monogram — the hero right below carries the full name */}
-                <div className="md:hidden font-mono font-bold text-lg tracking-tight text-white">
-                  FD<span className="text-accent">.</span>
-                </div>
-                <div className="hidden md:flex flex-col leading-none font-bold text-xl tracking-tighter mix-blend-difference text-white">
-                  <span>FELIX</span>
-                  <span className="text-xs font-light text-white/70">DAWODU</span>
-                </div>
+              {/* Monogram everywhere: the hero carries the full name */}
+              <div className="font-mono font-bold text-lg md:text-xl tracking-tight text-white">
+                FD<span className="text-accent">.</span>
               </div>
            </Magnetic>
         </Link>

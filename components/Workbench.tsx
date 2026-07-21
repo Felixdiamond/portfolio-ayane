@@ -59,16 +59,22 @@ export default function Workbench() {
           <circle cx="920" cy="320" r="5" />
         </g>
         {/* Everything still flows toward the one pad that matters */}
-        <g className="trace-current" fill="#d4a24e">
-          <circle r="3.5" opacity="0.85">
+        <g className="trace-current">
+          <g>
             <animateMotion dur="10s" repeatCount="indefinite" path="M0 120 H420 l60 60 v320 l40 40 H600" />
-          </circle>
-          <circle r="3" opacity="0.7">
+            <circle r="6" fill="#d4a24e" opacity="0.18" />
+            <circle r="3" fill="#d4a24e" opacity="0.85" />
+          </g>
+          <g>
             <animateMotion dur="12s" begin="4s" repeatCount="indefinite" path="M1200 80 H760 l-40 40 v340 l-60 60 H620" />
-          </circle>
-          <circle r="2.5" opacity="0.6">
+            <circle r="5" fill="#d4a24e" opacity="0.16" />
+            <circle r="2.5" fill="#d4a24e" opacity="0.7" />
+          </g>
+          <g>
             <animateMotion dur="9s" begin="2s" repeatCount="indefinite" path="M240 0 V300 l60 60 v180" />
-          </circle>
+            <circle r="5" fill="#d4a24e" opacity="0.16" />
+            <circle r="2.5" fill="#d4a24e" opacity="0.65" />
+          </g>
         </g>
       </svg>
 

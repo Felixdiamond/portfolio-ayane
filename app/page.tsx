@@ -34,7 +34,7 @@ export default function Home() {
       <VelocitySkew />
       <ConsoleSignature />
       {/* Film grain over everything — dark frames read as texture, not void */}
-      <div className="noise" aria-hidden />
+      <div className="grain" aria-hidden />
 
       <main className="relative flex justify-center items-center flex-col mx-auto overflow-visible z-10 w-full">
         {/* L3 — GLASS: the surface. Never suspended — this is the LCP. */}
