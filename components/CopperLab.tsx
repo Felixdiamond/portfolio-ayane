@@ -71,13 +71,36 @@ function TraceField() {
 
   return (
     <svg
-      className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.14]"
+      className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.18]"
       viewBox="0 0 1200 600"
       preserveAspectRatio="xMidYMid slice"
       aria-hidden
     >
-      {/* Routing */}
-      <g stroke="#b87333" strokeWidth="1.2" fill="none">
+      <defs>
+        {/* Ground pour: diagonal copper hatch */}
+        <pattern id="pour" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="7" stroke="#b87333" strokeWidth="0.6" opacity="0.5" />
+        </pattern>
+      </defs>
+
+      {/* Ground pour regions, corners only */}
+      <path d="M1200 0 h-260 l60 60 h80 l40 40 h80 Z" fill="url(#pour)" />
+      <path d="M0 600 h230 l-50 -50 H120 l-40 -40 H0 Z" fill="url(#pour)" />
+
+      {/* Background routing: finer, quieter, a layer below */}
+      <g stroke="#8a5626" strokeWidth="0.6" fill="none" opacity="0.6">
+        <path d="M0 40 H500 l30 30 H1200" />
+        <path d="M0 260 H340 l24 24 H760 l30 -30 H1200" />
+        <path d="M0 330 H240 l40 40 H720" />
+        <path d="M0 500 H420 l30 30 H900 l40 -40 h260" />
+        <path d="M220 0 V100 l30 30 V600" />
+        <path d="M540 0 V80 l-24 24 V300" />
+        <path d="M980 600 V420 l24 -24 V160" />
+        <path d="M660 600 V480 l40 -40 V260" />
+      </g>
+
+      {/* Foreground routing */}
+      <g stroke="#b87333" strokeWidth="1.4" fill="none">
         {BUSES.map((d) => (
           <path key={d} d={d} />
         ))}
@@ -134,7 +157,7 @@ function TraceField() {
       </g>
       <circle cx="952" cy="452" r="2.5" fill="#b87333" />
 
-      {/* Current: comet packets with a soft tail, travelling the buses */}
+      {/* Current: comet packets with layered tails, travelling the buses */}
       <g className="trace-current">
         {BUSES.map((d, i) => (
           <g key={d}>
@@ -144,8 +167,9 @@ function TraceField() {
               repeatCount="indefinite"
               path={d}
             />
-            <circle r="6" fill="#d4a24e" opacity="0.18" />
-            <circle r="3" fill="#d4a24e" opacity="0.85" />
+            <circle r="10" fill="#d4a24e" opacity="0.07" />
+            <circle r="6" fill="#d4a24e" opacity="0.2" />
+            <circle r="2.8" fill="#e8c98a" opacity="0.95" />
           </g>
         ))}
       </g>

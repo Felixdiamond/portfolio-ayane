@@ -43,8 +43,9 @@ export const Navbar = () => {
           visible: { y: 0, opacity: 1 },
           hidden: { y: "-100%", opacity: 0 },
         }}
+        initial={{ y: -60, opacity: 0 }}
         animate={hidden ? "hidden" : "visible"}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
           "fixed top-4 inset-x-0 mx-auto w-[95%] max-w-4xl z-[100]",
           "flex items-center justify-between px-6 py-3",

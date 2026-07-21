@@ -183,7 +183,7 @@ export default function TerminalLayer() {
           style={{ color: PHOSPHOR, textShadow: `0 0 8px ${PHOSPHOR}55` }}
         >
           <span ref={screenRef} />
-          <span ref={cursorRef} className="inline-block w-[0.6em] h-[1.1em] align-text-bottom animate-pulse" style={{ background: "currentColor" }} aria-hidden />
+          <span ref={cursorRef} className="terminal-blink inline-block w-[0.6em] h-[1.1em] align-text-bottom" style={{ background: "currentColor" }} aria-hidden />
         </pre>
 
         {/* Screen-reader users get the session as plain text */}

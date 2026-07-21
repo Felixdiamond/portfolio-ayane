@@ -130,6 +130,7 @@ function MobileGlass({
           transformStyle: "preserve-3d",
           background:
             "linear-gradient(150deg, rgba(232,228,220,0.055) 0%, rgba(232,228,220,0.015) 45%, rgba(184,115,51,0.05) 100%)",
+          boxShadow: "0 24px 60px rgba(0,0,0,0.45)",
         }}
       >
         {/* Plate silkscreen */}
@@ -345,7 +346,7 @@ export default function GlassHero() {
                 e.preventDefault();
                 scrollToTarget("#runtime");
               }}
-              className="group inline-flex items-center gap-3 px-7 py-3.5 text-[11px] font-medium tracking-widest uppercase text-text-primary/90 border border-border-subtle rounded-full transition-all duration-300 hover:border-border-accent hover:bg-accent/5 active:scale-95"
+              className="group inline-flex items-center gap-3 px-7 py-3.5 text-[11px] font-medium tracking-widest uppercase text-text-primary/90 border border-border-subtle rounded-full transition-all duration-300 hover:border-accent hover:bg-accent hover:text-void active:scale-95"
             >
               <span>See the work</span>
               <svg

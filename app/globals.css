@@ -266,7 +266,7 @@
     pointer-events: none;
     background-image: url("/noise.webp");
     background-repeat: repeat;
-    opacity: 0.06;
+    opacity: 0.12;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -317,6 +317,17 @@
     );
     mix-blend-mode: overlay;
     opacity: calc(var(--foil, 0) + 0.15);
+  }
+
+  /* Authentic terminal cursor: hard blink, no fade */
+  .terminal-blink {
+    animation: term-blink 1.06s steps(1) infinite;
+  }
+
+  @keyframes term-blink {
+    50% {
+      opacity: 0;
+    }
   }
 
   /* Bankai release — one violent breath */

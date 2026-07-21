@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { scrollToTarget } from "@/utils/lenis";
 import { buzz } from "@/utils/haptics";
 
@@ -18,10 +18,19 @@ const LAYERS = [
 export default function DepthGauge() {
   const [active, setActive] = useState("glass");
   const [visible, setVisible] = useState(false);
+  const spineRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    // Fade the gauge in once the visitor starts moving
-    const onScroll = () => setVisible(window.scrollY > 40);
+    // Fade the gauge in once the visitor starts moving; fill the spine
+    // with overall descent progress
+    const onScroll = () => {
+      setVisible(window.scrollY > 40);
+      if (spineRef.current) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+        spineRef.current.style.transform = `scaleY(${p.toFixed(4)})`;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -61,6 +70,14 @@ export default function DepthGauge() {
           visible ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
+        {/* Descent spine: overall progress, tick to tick */}
+        <span className="absolute -left-2 top-0 bottom-0 w-px bg-white/[0.07]" aria-hidden>
+          <span
+            ref={spineRef}
+            className="absolute inset-0 origin-top bg-accent/60"
+            style={{ transform: "scaleY(0)" }}
+          />
+        </span>
         {LAYERS.map((layer) => {
           const isActive = layer.id === active;
           return (

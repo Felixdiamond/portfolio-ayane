@@ -119,7 +119,7 @@ export default function RunningSystems() {
             target={item.link ? "_blank" : undefined}
             rel={item.link ? "noreferrer" : undefined}
             aria-disabled={item.link ? undefined : true}
-            className={`group relative w-[76vw] md:w-[55vw] h-[57vh] md:h-[64vh] flex-shrink-0 flex flex-col justify-between border border-border-subtle overflow-hidden bg-surface/60 hover:border-border-accent transition-colors duration-500 ${
+            className={`group relative w-[76vw] md:w-[55vw] h-[57vh] md:h-[64vh] flex-shrink-0 flex flex-col justify-between border border-border-subtle overflow-hidden bg-surface/60 hover:border-border-accent transition-[colors,transform,border-color] duration-500 md:hover:-translate-y-1.5 ${
               item.link ? "" : "cursor-default"
             }`}
           >

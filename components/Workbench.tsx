@@ -180,7 +180,7 @@ export default function Workbench() {
                 href={s.href}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors w-fit"
+                className="relative flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors w-fit after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100"
               >
                 {s.icon} {s.name}
               </a>
