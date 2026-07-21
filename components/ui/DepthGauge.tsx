@@ -81,7 +81,7 @@ export default function DepthGauge() {
                     isActive ? "text-accent" : "text-text-faint group-hover:text-text-muted"
                   }`}
                 >
-                  {layer.index} — {layer.name}
+                  {layer.index} · {layer.name}
                 </span>
                 <span
                   className={`font-mono text-[8px] tracking-[0.2em] uppercase transition-all duration-500 overflow-hidden ${

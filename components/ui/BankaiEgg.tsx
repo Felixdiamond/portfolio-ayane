@@ -32,7 +32,7 @@ export default function BankaiEgg() {
       <button
         onClick={fire}
         className="group/seal text-left font-mono text-[10px] text-text-muted tracking-[0.15em] transition-colors duration-300 hover:text-accent cursor-pointer"
-        aria-label="Board signature — press to release"
+        aria-label="Board signature. Press to release"
       >
         AYANE-01 · rev 5.0
         <span className="inline-block w-1.5 h-1.5 ml-2 rounded-full bg-text-faint group-hover/seal:bg-accent group-hover/seal:animate-pulse transition-colors duration-300 align-middle" />
@@ -96,7 +96,7 @@ export default function BankaiEgg() {
                 卍解
               </span>
               <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.35em] text-accent">
-                bankai — you found it
+                bankai. you found it
               </span>
             </motion.div>
           </motion.div>

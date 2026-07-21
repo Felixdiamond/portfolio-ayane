@@ -52,7 +52,7 @@ export const Navbar = () => {
           "shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]"
         )}
       >
-        <Link href="/" className="relative z-50" aria-label="Felix Dawodu — home">
+        <Link href="/" className="relative z-50" aria-label="Felix Dawodu, home">
            <Magnetic>
               <div>
                 {/* Mobile shows a monogram — the hero right below carries the full name */}

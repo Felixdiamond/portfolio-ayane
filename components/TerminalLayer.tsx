@@ -15,33 +15,33 @@ const SESSION = `$ whoami
 |  _|  | |___ | |___  | |  /  \\
 |_|    |_____||_____||___|/_/\\_\\
 
-felix — full-stack & systems engineer · lagos, ng
+felix - full-stack & systems engineer, lagos ng
 
 $ journalctl --unit=career --no-pager
-[2022—2023]  full-stack developer @ lomosoft / chainkoffee
-             → modular microservices & REST APIs
-             → data throughput up 30%
+[2022-2023]  full-stack developer @ lomosoft / chainkoffee
+             -> modular microservices & REST APIs
+             -> data throughput up 30%
 
-[2023—now ]  freelance systems engineer @ independent
-             → school biometrics: scanner driver → face rec → web
-             → GPU dubbing pipeline · reverse-engineered AI gateway
-             → CLI automation cutting client workflows 90%
+[2023-now ]  freelance systems engineer @ independent
+             -> school biometrics: scanner driver, face rec, web
+             -> GPU dubbing pipeline + reverse-engineered AI gateway
+             -> CLI automation cutting client workflows 90%
 
-[2026—now ]  IoT engineering intern @ koolboks — lagos
-             → solar-freezer door sensors on the production line
-             → the I2C wire-colour lesson, permanently burned in
+[2026-now ]  IoT engineering intern @ koolboks, lagos
+             -> solar-freezer door sensors on the production line
+             -> the I2C wire-colour lesson, permanently burned in
 
 $ systemctl status availability
-● open-to-work.service — active (running)
+● open-to-work.service - active (running)
 
 $ crontab -l
-@weekly  explain one complex thing, simply → @ayanesenpai_
+@weekly  explain one complex thing, simply -> @ayanesenpai_
 
 $ echo $STATUS
 still in school. still building.
 
 $ cd /hardware && ls
-descending to L0 …`;
+descending to L0 ...`;
 
 // The one place phosphor green is allowed to exist.
 const PHOSPHOR = "#33ff66";
@@ -170,7 +170,7 @@ export default function TerminalLayer() {
 
       <div className="relative h-full max-w-5xl mx-auto px-5 md:px-14 pt-24 pb-32 md:pt-28 md:pb-36 flex flex-col">
         <div className="flex items-center justify-between mb-8 font-mono text-[9px] md:text-[10px] uppercase tracking-[0.3em]" style={{ color: `${PHOSPHOR}99` }}>
-          <span>tty0 — career.log</span>
+          <span>tty0 · career.log</span>
           <span>[ L1 · TERMINAL ]</span>
         </div>
 

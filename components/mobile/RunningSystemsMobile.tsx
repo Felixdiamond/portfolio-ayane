@@ -27,7 +27,7 @@ export default function RunningSystemsMobile() {
       <div className="absolute top-8 inset-x-6 z-10 flex items-start justify-between pointer-events-none select-none">
         <div>
           <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-text-muted/70 block mb-2">
-            Process list — {remaining.length} running
+            Process list · {remaining.length} running
           </span>
           <h2 className="text-4xl font-black uppercase text-text-primary tracking-tighter leading-none">
             Running

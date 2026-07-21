@@ -23,8 +23,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://portfolio-ayane.vercel.app'),
-  title: "Felix Dawodu — Full-Stack & Systems Engineer",
-  description: "Felix Dawodu builds the whole stack — polished interfaces down to bare metal. Full-stack engineering, AI infrastructure, and hardware from Lagos, Nigeria.",
+  title: "Felix Dawodu | Full-Stack & Systems Engineer",
+  description: "Felix Dawodu builds the whole stack, from polished interfaces down to bare metal. Full-stack engineering, AI infrastructure and hardware from Lagos, Nigeria.",
   authors: [{ name: "Felix Dawodu" }],
   keywords: [
     "Full Stack Developer",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "Next.js"
   ],
   openGraph: {
-    title: "Felix Dawodu — Full-Stack & Systems Engineer",
+    title: "Felix Dawodu | Full-Stack & Systems Engineer",
     description: "The whole stack: glass to copper. Interfaces, AI infrastructure, and hardware.",
     url: "https://portfolio-ayane.vercel.app",
     siteName: "Felix Dawodu Portfolio",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Felix Dawodu — Full-Stack & Systems Engineer",
+    title: "Felix Dawodu | Full-Stack & Systems Engineer",
     description: "The whole stack: glass to copper.",
     images: ["/images/portfolio-og-image.jpg"]
   },

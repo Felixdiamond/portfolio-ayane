@@ -253,10 +253,10 @@ export default function GlassHero() {
     <section
       ref={sectionRef}
       className="relative w-full h-dvh overflow-hidden bg-carbon"
-      aria-label="Introduction — Felix Dawodu"
+      aria-label="Introduction: Felix Dawodu"
     >
       {/* Accessible name for all viewports; visually replaced by the scene on desktop */}
-      <h1 className="sr-only">Felix Dawodu — full-stack and systems engineer</h1>
+      <h1 className="sr-only">Felix Dawodu, full-stack and systems engineer</h1>
 
       {/* Backdrop: faint sheen, hairline depth rules */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
@@ -300,7 +300,7 @@ export default function GlassHero() {
           transition={{ delay: 1.1, duration: 0.9 }}
           className="hidden md:flex items-center justify-between pt-24 md:pt-28 font-mono text-[9px] md:text-[10px] tracking-[0.3em] text-text-muted/70 uppercase"
         >
-          <span>Lagos, NG — UTC+1</span>
+          <span>Lagos, NG · UTC+1</span>
           <span className="text-text-muted/50">[ L3 · GLASS ]</span>
         </motion.div>
 
@@ -316,7 +316,7 @@ export default function GlassHero() {
             transition={{ delay: 0.9, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="mt-7 md:mt-0 max-w-md text-sm md:text-base text-text-secondary leading-relaxed"
           >
-            I build the whole stack —{" "}
+            I build the whole stack,{" "}
             <span className="text-text-primary">glass to copper</span>. Most weeks
             that means AI infrastructure. Some weeks it means a soldering iron.
           </motion.p>
@@ -379,7 +379,7 @@ export default function GlassHero() {
               )}
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-text-muted/60">
-              Scroll — descend to L2 · Runtime
+              Scroll · descend to L2
             </span>
           </div>
           <span className="hidden md:block font-mono text-[9px] tracking-[0.25em] text-accent/60">

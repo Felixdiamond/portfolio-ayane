@@ -6,9 +6,9 @@ import { cn } from "@/utils/cn";
 
 const STATEMENT = [
   { text: "Most developers stop at the framework." },
-  { text: "I keep going —" },
-  { text: "through the runtime, past the API," },
-  { text: "down to the metal.", copper: true },
+  { text: "I keep going." },
+  { text: "Through the runtime. Past the API." },
+  { text: "Down to the metal.", copper: true },
 ];
 
 const DEPTHS = [
@@ -27,7 +27,7 @@ const DEPTHS = [
   {
     marker: "▓▓▓",
     title: "Metal",
-    description: "Firmware, drivers, edge AI — hardware when software isn't enough.",
+    description: "Firmware, drivers, edge AI. Hardware for when software isn't enough.",
     tags: ["ESP32", "Termux", "Linux", "C++"],
   },
 ];

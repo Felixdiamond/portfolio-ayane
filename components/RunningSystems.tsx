@@ -99,7 +99,7 @@ export default function RunningSystems() {
     <div ref={containerRef} className="relative w-full h-screen overflow-hidden bg-abyss z-30">
       <div className="absolute top-10 left-10 md:left-14 z-10 pointer-events-none">
         <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-text-muted/70 block mb-3">
-          Process list — {projects.length} running
+          Process list · {projects.length} running
         </span>
         <h2 className="text-4xl md:text-6xl font-black uppercase text-text-primary tracking-tighter" data-vskew>
           Running Systems
@@ -204,7 +204,7 @@ export default function RunningSystems() {
 
       <div className="absolute bottom-10 right-10 z-20 hidden md:block pointer-events-none">
         <span className="font-mono text-text-primary/40 uppercase text-[10px] tracking-[0.25em]">
-          Scroll — traversing processes
+          Scroll · traversing processes
         </span>
       </div>
     </div>

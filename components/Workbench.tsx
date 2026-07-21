@@ -92,7 +92,7 @@ export default function Workbench() {
           >
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] text-text-secondary">
-              Accepting new connections — remote · any timezone
+              Accepting new connections · remote · any timezone
             </span>
           </motion.div>
 
@@ -128,7 +128,7 @@ export default function Workbench() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="max-w-md text-text-secondary text-sm md:text-base leading-relaxed"
           >
-            That&apos;s the whole stack — you just scrolled through it. If your next
+            That&apos;s the whole stack. You just scrolled through it. If your next
             problem lives on more than one of those layers, let&apos;s talk. One
             layer works too.
           </motion.p>

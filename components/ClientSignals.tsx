@@ -19,7 +19,7 @@ export default function ClientSignals() {
     <section className="relative w-full py-16 md:py-20 bg-abyss border-y border-border-subtle overflow-hidden" aria-label="Client feedback">
       <div className="max-w-7xl mx-auto px-5 md:px-14 mb-8 flex items-center justify-between">
         <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-text-muted/70">
-          stdout — client signals
+          stdout · client signals
         </span>
         <span className="font-mono text-[9px] md:text-[10px] tracking-[0.25em] text-text-muted/40">
           3 messages
@@ -45,7 +45,7 @@ export default function ClientSignals() {
               “{t.quote.length > 110 ? t.quote.slice(0, 107).trimEnd() + "…" : t.quote}”
             </span>
             <cite className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.15em] text-text-muted not-italic shrink-0">
-              — {t.name} · {t.title}
+              {t.name} · {t.title}
             </cite>
           </blockquote>
         ))}

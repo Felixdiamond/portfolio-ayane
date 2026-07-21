@@ -13,7 +13,7 @@ const EXPERIMENTS = [
     ref: "U1",
     title: "ESP_DECK",
     type: "Embedded / KiCad",
-    desc: "A handheld console from scratch — ESP32, OLED, custom firmware. Currently graduating from breadboard to a custom KiCad PCB.",
+    desc: "A handheld console from scratch: ESP32, OLED, custom firmware. Currently graduating from breadboard to its own KiCad PCB.",
     icon: <FaGamepad />,
     status: "PCB REV A",
   },
@@ -21,7 +21,7 @@ const EXPERIMENTS = [
     ref: "U2",
     title: "TINY_ML",
     type: "Edge AI / ESP32",
-    desc: "A keyword-spotting model living on an ESP32 in under 1MB of RAM. No cloud, no internet — it hears “fan on” and obeys.",
+    desc: "A keyword-spotting model living on an ESP32 in under 1MB of RAM. No cloud, no internet. It hears “fan on” and obeys.",
     icon: <FaEarListen />,
     status: "ONLINE",
   },
@@ -29,7 +29,7 @@ const EXPERIMENTS = [
     ref: "U3",
     title: "PLANT_LINK",
     type: "AgTech / Sensors",
-    desc: "An ESP32 soil station reading moisture, pH, and N-P-K. Plants can’t talk — this is a way for them to.",
+    desc: "An ESP32 soil station reading moisture, pH, and N-P-K. Plants can’t talk. This is a way for them to.",
     icon: <FaSeedling />,
     status: "FIELD TEST",
   },
@@ -37,7 +37,7 @@ const EXPERIMENTS = [
     ref: "U4",
     title: "PAD_BRIDGE",
     type: "USB / BLE",
-    desc: "A ₦2,500 knockoff gamepad speaks USB-A; phones don’t. An ESP32-S3 sits between, reading USB and re-broadcasting as native Bluetooth.",
+    desc: "A ₦2,500 knockoff gamepad speaks USB-A and phones don’t. An ESP32-S3 sits between, reading USB and re-broadcasting as native Bluetooth.",
     icon: <FaBluetooth />,
     status: "DAILY DRIVER",
   },
@@ -53,7 +53,7 @@ const EXPERIMENTS = [
     ref: "U6",
     title: "1_BIT_CPU",
     type: "Architecture",
-    desc: "A full adder out of bare logic gates — torn down and rebuilt flush after the first rat’s nest taught me why clean circuits debug faster.",
+    desc: "A full adder out of bare logic gates, torn down and rebuilt flush after the first rat’s nest taught me why clean circuits debug faster.",
     icon: <FaMicrochip />,
     status: "REBUILT",
   },
@@ -148,7 +148,7 @@ export default function CopperLab() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 border-b border-border pb-8 md:pb-10">
           <div>
             <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-accent/80 block mb-3">
-              Hardware lab — off the clock
+              Hardware lab · off the clock
             </span>
             <h2 className="text-[12.5vw] md:text-8xl font-black text-text-primary uppercase tracking-tighter" data-vskew>
               The
