@@ -9,7 +9,7 @@ import FlexText from "./ui/FlexText";
 import BankaiEgg from "./ui/BankaiEgg";
 import { buzz } from "@/utils/haptics";
 
-const EMAIL = "diamondfelix006@gmail.com";
+const EMAIL = "felix@felixdawodu.com";
 
 const SOCIALS = [
   { name: "GitHub", href: "https://github.com/Felixdiamond", icon: <FaGithub /> },
